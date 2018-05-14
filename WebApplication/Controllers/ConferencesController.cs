@@ -87,18 +87,21 @@ namespace WebApplication.Controllers
         {
             //List<User> usersAlreadyInvited = new List<User>();
             var getUser = (User) Session["getUser"];
-
-            mailSender(getUser.email,getUser.first_name,user.text,getUser.verification_key);
+            DateTime date_invitation_sent = DateTime.Now;
+            mailSender(date_invitation_sent,getUser.id_user, getUser.email,getUser.first_name,user.text,getUser.verification_key);
             //usersAlreadyInvited.Add(getUser);
             //se adauga intr-o lista userii care deja au fost invitati 
             //usersAlreadyInvited.Add(user);
+           
+                //Session["date_invitation_sent"]=DateTime.Now;
             return RedirectToAction("SendInvite", "Conferences");
         }
 
-        public void mailSender(String email, String first_name, String text, String verification_key)
+        public void mailSender(DateTime date_invitation_sent, int id_user, String email, String first_name, String text, String verification_key)
         {
             var conference =(Conference) Session["Conference"];
             int id_conference = conference.id_conference;
+           
 
             MailAddress fromAddress = new MailAddress("peer.review.confirmation@gmail.com");
             MailAddress toAddress = new MailAddress(email);
@@ -107,7 +110,7 @@ namespace WebApplication.Controllers
             const string fromPassword = "piqejhrgxidzojsf";
             const string subject = "Invitation for review";
             // var body = "Verification Key - Enter into link below " + verification_key;
-            var body = string.Format("Dear, {0} <BR/>  <BR/> Thank you for your registration. <BR/><b> Message:</b> {2} <BR/> please click on the below link to accept the chair's invitation : <a href =\"{1}\" title =\"Accept or decline\">{1}</a>", first_name, Url.Action("AcceptDecline", "Conferences" ,new { verification_key, id_conference }, Request.Url.Scheme), text);
+            var body = string.Format("Dear, {0} <BR/>  <BR/> Thank you for your registration. <BR/><b> Message:</b> {2} <BR/> please click on the below link to accept the chair's invitation : <a href =\"{1}\" title =\"Accept or decline\">{1}</a>", first_name, Url.Action("AcceptDecline", "Conferences" ,new { verification_key, id_conference, id_user }, Request.Url.Scheme), text);
 
             //  var body = GetFormattedMessageHTML(email, first_name,verification_key);
 
@@ -156,26 +159,33 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult AcceptDecline([Bind(Include="verification_key")]User user, int id_conference, String submit )
+        public ActionResult AcceptDecline([Bind(Include="verification_key")]User user,int id_user, int id_conference, String submit )
         {
 
             // var confActuala =(Conference) Session["Conference"];
             //  confActuala = db.Conferences.Find(confActuala.id_conference);
 
             var conference = db.Conferences.Find(id_conference);
+            var userFound = db.Users.Find(id_user);
+            
 
-            var userFound = db.Users.Find(user.verification_key);
             if (Request.Form["Accept"] != null)
             {
                 PCmember newPcMember = new PCmember();
-
+                 newPcMember.User= db.Users.Find(id_user);
                 //id-ul conferintei pe care sunt
-                newPcMember.id_conference= id_conference;
-                newPcMember.id_user = userFound.id_user;
+                newPcMember.Conference= db.Conferences.Find(id_conference);
+                newPcMember.id_user = newPcMember.User.id_user;
+                newPcMember.id_conference = newPcMember.Conference.id_conference;
                 newPcMember.is_chair = false;
-                newPcMember.User = userFound;
+                //newPcMember.User = userFound;
                 newPcMember.is_valid = false;
+                newPcMember.dateinvitationacc = DateTime.Now;
+                var invitation_sent = Session["date_invitation_sent"];
 
+                newPcMember.dateinvitationsent = DateTime.Now;
+                //newPcMember.dateinvitationacc = (DateTime)invitation_acc;
+               // newPcMember.Conference = conference;
                 db.PCmembers.Add(newPcMember);
                 db.SaveChanges();
             }
