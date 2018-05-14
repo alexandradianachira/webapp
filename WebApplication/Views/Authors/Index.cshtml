@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebApplication.Author>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_paper)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.is_coresponding)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_paper)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_coresponding)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_author }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_author }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_author })
+        </td>
+    </tr>
+}
+
+</table>

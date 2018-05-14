@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "RSVP";
+}
+<link rel="stylesheet" runat="server"  href="~/css/basic.css" />
+<h2>Please respond to chair's invitation</h2>
+@using (Html.BeginForm())
+{
+<input type="submit" name="Accept" class="btn btn-success" value="Accept" />
+<input type="submit" name="Decline"  class="btn btn-danger" value="Decline" />
+<label></label>  @ViewBag.Message
+}

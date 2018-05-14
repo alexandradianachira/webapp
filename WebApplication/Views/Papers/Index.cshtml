@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebApplication.Paper>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_conference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pdf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_submitted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.is_submitted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.decision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.decision_text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.decision_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.au)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_conference)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pdf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_submitted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_submitted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.decision)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.decision_text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.decision_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.au)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_paper }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_paper }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_paper })
+        </td>
+    </tr>
+}
+
+</table>

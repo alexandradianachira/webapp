@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="36abbd07d1b141fa9e53f3d85bfaad98" Name="Diagram1" ZoomLevel="77" >
+        <EntityTypeShape EntityType="UserModel.User" Width="3" PointX="3" PointY="2.25" />
+        <EntityTypeShape EntityType="UserModel.Conference" Width="1.5" PointX="4.375" PointY="6.25" />
+        <AssociationConnector Association="UserModel.ConferenceChair" />
+        <EntityTypeShape EntityType="UserModel.PCmember" Width="1.5" PointX="0.75" PointY="2.625" />
+        <AssociationConnector Association="UserModel.PCmembersUser" />
+        <EntityTypeShape EntityType="UserModel.Paper" Width="1.5" PointX="9.125" PointY="2.875" />
+        <AssociationConnector Association="UserModel.PCmemberConference" />
+        <EntityTypeShape EntityType="UserModel.Subreviewer" Width="1.5" PointX="6.75" PointY="2.625" />
+        <AssociationConnector Association="UserModel.UserSubreviewer" />
+        <EntityTypeShape EntityType="UserModel.Subreview" Width="1.5" PointX="7.375" PointY="6.125" />
+        <AssociationConnector Association="UserModel.SubreviewSubreviewer" />
+        <EntityTypeShape EntityType="UserModel.PaperAssignment" Width="1.5" PointX="1.5" PointY="8.625" />
+        <AssociationConnector Association="UserModel.PaperAssignmentPCmember" />
+        <AssociationConnector Association="UserModel.PaperAssignmentSubreviewer" />
+        <AssociationConnector Association="UserModel.PaperPaperAssignment" />
+        <EntityTypeShape EntityType="UserModel.Review" Width="1.5" PointX="12.75" PointY="6.5" />
+        <AssociationConnector Association="UserModel.PaperAssignmentReview" />
+        <EntityTypeShape EntityType="UserModel.Author" Width="1.5" PointX="7.875" PointY="11.125" />
+        <AssociationConnector Association="UserModel.UserAuthor" />
+        <AssociationConnector Association="UserModel.AuthorPaper" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

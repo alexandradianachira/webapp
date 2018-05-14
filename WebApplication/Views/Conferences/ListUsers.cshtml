@@ -1,0 +1,40 @@
+﻿@model WebApplication.User
+<div>
+    <h4>Conference</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.surname)
+        </dd>
+
+        <dt>
+
+            @Html.DisplayNameFor(model => model.first_name)
+
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.first_name)
+
+        </dd>
+
+        <dt>
+
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+
+      
+    </dl>
+    @Html.ActionLink("Write a text", "WriteText")
+
+    
+  
+</div>
+

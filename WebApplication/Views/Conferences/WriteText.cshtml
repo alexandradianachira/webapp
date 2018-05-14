@@ -1,0 +1,23 @@
+﻿@model User
+@{
+    ViewBag.Title = "WriteText";
+}
+
+<h2>WriteText</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<dl>
+    <dt>
+        @*@Html.ActionLink("Send invite", "SendInvite")*@
+        @Html.DisplayNameFor(model => model.text)
+    </dt>
+    <dd>
+
+        @Html.TextArea("Text", null, new { @class = "form-control" })
+
+    </dd>
+   
+</dl>
+<input type="submit" value="Send" class="btn btn-default" > 
+}

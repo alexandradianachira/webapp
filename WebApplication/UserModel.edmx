@@ -1,0 +1,780 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UserModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="UserModelStoreContainer">
+    <EntitySet Name="Users" EntityType="UserModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Conferences" EntityType="UserModel.Store.Conferences" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PCmembers" EntityType="UserModel.Store.PCmembers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Papers" EntityType="UserModel.Store.Papers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Subreviewers" EntityType="UserModel.Store.Subreviewers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Subreviews1" EntityType="UserModel.Store.Subreviews1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PaperAssignments" EntityType="UserModel.Store.PaperAssignments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reviews" EntityType="UserModel.Store.Reviews" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Authors" EntityType="UserModel.Store.Authors" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ConferenceChair" Association="UserModel.Store.ConferenceChair">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Conference" EntitySet="Conferences" />
+    </AssociationSet>
+    <AssociationSet Name="PCmembersUser" Association="UserModel.Store.PCmembersUser">
+      <End Role="PCmembers" EntitySet="PCmembers" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="PCmemberConference" Association="UserModel.Store.PCmemberConference">
+      <End Role="PCmember" EntitySet="PCmembers" />
+      <End Role="Conference" EntitySet="Conferences" />
+    </AssociationSet>
+    <AssociationSet Name="UserSubreviewer" Association="UserModel.Store.UserSubreviewer">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Subreviewer" EntitySet="Subreviewers" />
+    </AssociationSet>
+    <AssociationSet Name="SubreviewSubreviewer" Association="UserModel.Store.SubreviewSubreviewer">
+      <End Role="Subreview" EntitySet="Subreviews1" />
+      <End Role="Subreviewer" EntitySet="Subreviewers" />
+    </AssociationSet>
+    <AssociationSet Name="PaperAssignmentPCmember" Association="UserModel.Store.PaperAssignmentPCmember">
+      <End Role="PaperAssignment" EntitySet="PaperAssignments" />
+      <End Role="PCmember" EntitySet="PCmembers" />
+    </AssociationSet>
+    <AssociationSet Name="PaperAssignmentSubreviewer" Association="UserModel.Store.PaperAssignmentSubreviewer">
+      <End Role="PaperAssignment" EntitySet="PaperAssignments" />
+      <End Role="Subreviewer" EntitySet="Subreviewers" />
+    </AssociationSet>
+    <AssociationSet Name="PaperPaperAssignment" Association="UserModel.Store.PaperPaperAssignment">
+      <End Role="Paper" EntitySet="Papers" />
+      <End Role="PaperAssignment" EntitySet="PaperAssignments" />
+    </AssociationSet>
+    <AssociationSet Name="PaperAssignmentReview" Association="UserModel.Store.PaperAssignmentReview">
+      <End Role="PaperAssignment" EntitySet="PaperAssignments" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="UserAuthor" Association="UserModel.Store.UserAuthor">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Author" EntitySet="Authors" />
+    </AssociationSet>
+    <AssociationSet Name="AuthorPaper" Association="UserModel.Store.AuthorPaper">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Paper" EntitySet="Papers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id_user" />
+    </Key>
+    <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="first_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="institution" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="verified_account" Type="datetime" Nullable="false" />
+    <Property Name="date_verification_send" Type="datetime" Nullable="false" />
+    <Property Name="date_active" Type="datetime" Nullable="false" />
+    <Property Name="verification_key" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Conferences">
+    <Key>
+      <PropertyRef Name="id_conference" />
+    </Key>
+    <Property Name="id_conference" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="conference_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="location" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="start_date" Type="datetime" Nullable="false" />
+    <Property Name="end_date" Type="datetime" Nullable="false" />
+    <Property Name="Chair_id_user" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PCmembers">
+    <Key>
+      <PropertyRef Name="id_pcmember" />
+    </Key>
+    <Property Name="id_pcmember" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="id_conference" Type="int" Nullable="false" />
+    <Property Name="is_chair" Type="bit" Nullable="false" />
+    <Property Name="dateinvitationsent" Type="datetime" Nullable="false" />
+    <Property Name="dateinvitationacc" Type="datetime" Nullable="false" />
+    <Property Name="is_valid" Type="bit" Nullable="false" />
+    <Property Name="User_id_user" Type="int" Nullable="false" />
+    <Property Name="Conference_id_conference" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Papers">
+    <Key>
+      <PropertyRef Name="id_paper" />
+    </Key>
+    <Property Name="id_paper" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_conference" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="pdf" Type="varbinary(max)" Nullable="false" />
+    <Property Name="date_submitted" Type="time" Nullable="false" />
+    <Property Name="is_submitted" Type="bit" Nullable="false" />
+    <Property Name="decision" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="decision_text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="decision_date" Type="time" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="au" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Author_id_author" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Subreviewers">
+    <Key>
+      <PropertyRef Name="id_subreviewer" />
+    </Key>
+    <Property Name="id_subreviewer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_paperassignment" Type="int" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="invitation_send_date" Type="datetime" Nullable="false" />
+    <Property Name="invitation_ack" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="is_accepted" Type="bit" Nullable="false" />
+    <Property Name="User_id_user" Type="int" Nullable="false" />
+    <Property Name="PaperAssignment_id_paper_assignment" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Subreviews1">
+    <Key>
+      <PropertyRef Name="id_subreview" />
+    </Key>
+    <Property Name="id_subreview" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_subreviewer" Type="int" Nullable="false" />
+    <Property Name="grade" Type="int" Nullable="false" />
+    <Property Name="confidence" Type="int" Nullable="false" />
+    <Property Name="comments" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="comment_to_edit" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="date_submitted" Type="datetime" Nullable="false" />
+    <Property Name="Subreviewer_id_subreviewer" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaperAssignments">
+    <Key>
+      <PropertyRef Name="id_paper_assignment" />
+    </Key>
+    <Property Name="id_paper_assignment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_paper" Type="int" Nullable="false" />
+    <Property Name="id_pcmember" Type="int" Nullable="false" />
+    <Property Name="date_assigned" Type="datetime" Nullable="false" />
+    <Property Name="date_due" Type="datetime" Nullable="false" />
+    <Property Name="is_delegated" Type="bit" Nullable="false" />
+    <Property Name="PCmember_id_pcmember" Type="int" Nullable="false" />
+    <Property Name="Paper_id_paper" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reviews">
+    <Key>
+      <PropertyRef Name="id_review" />
+    </Key>
+    <Property Name="id_review" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_paper_assignment" Type="int" Nullable="false" />
+    <Property Name="grade" Type="int" Nullable="false" />
+    <Property Name="confidence" Type="int" Nullable="false" />
+    <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="comment_to_edit" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="date_submitted" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="from_subreviewer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PaperAssignment_id_paper_assignment" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Authors">
+    <Key>
+      <PropertyRef Name="id_author" />
+    </Key>
+    <Property Name="id_author" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_paper" Type="int" Nullable="false" />
+    <Property Name="is_coresponding" Type="bit" Nullable="false" />
+    <Property Name="User_id_user" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ConferenceChair">
+    <End Role="User" Type="UserModel.Store.Users" Multiplicity="1" />
+    <End Role="Conference" Type="UserModel.Store.Conferences" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Conference">
+        <PropertyRef Name="Chair_id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PCmembersUser">
+    <End Role="PCmembers" Type="UserModel.Store.PCmembers" Multiplicity="*" />
+    <End Role="User" Type="UserModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="PCmembers">
+        <PropertyRef Name="User_id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PCmemberConference">
+    <End Role="PCmember" Type="UserModel.Store.PCmembers" Multiplicity="*" />
+    <End Role="Conference" Type="UserModel.Store.Conferences" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Conference">
+        <PropertyRef Name="id_conference" />
+      </Principal>
+      <Dependent Role="PCmember">
+        <PropertyRef Name="Conference_id_conference" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserSubreviewer">
+    <End Role="User" Type="UserModel.Store.Users" Multiplicity="1" />
+    <End Role="Subreviewer" Type="UserModel.Store.Subreviewers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Subreviewer">
+        <PropertyRef Name="User_id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SubreviewSubreviewer">
+    <End Role="Subreview" Type="UserModel.Store.Subreviews1" Multiplicity="*" />
+    <End Role="Subreviewer" Type="UserModel.Store.Subreviewers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Subreviewer">
+        <PropertyRef Name="id_subreviewer" />
+      </Principal>
+      <Dependent Role="Subreview">
+        <PropertyRef Name="Subreviewer_id_subreviewer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PaperAssignmentPCmember">
+    <End Role="PaperAssignment" Type="UserModel.Store.PaperAssignments" Multiplicity="*" />
+    <End Role="PCmember" Type="UserModel.Store.PCmembers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="PCmember">
+        <PropertyRef Name="id_pcmember" />
+      </Principal>
+      <Dependent Role="PaperAssignment">
+        <PropertyRef Name="PCmember_id_pcmember" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PaperAssignmentSubreviewer">
+    <End Role="PaperAssignment" Type="UserModel.Store.PaperAssignments" Multiplicity="1" />
+    <End Role="Subreviewer" Type="UserModel.Store.Subreviewers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaperAssignment">
+        <PropertyRef Name="id_paper_assignment" />
+      </Principal>
+      <Dependent Role="Subreviewer">
+        <PropertyRef Name="PaperAssignment_id_paper_assignment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PaperPaperAssignment">
+    <End Role="Paper" Type="UserModel.Store.Papers" Multiplicity="1" />
+    <End Role="PaperAssignment" Type="UserModel.Store.PaperAssignments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paper">
+        <PropertyRef Name="id_paper" />
+      </Principal>
+      <Dependent Role="PaperAssignment">
+        <PropertyRef Name="Paper_id_paper" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PaperAssignmentReview">
+    <End Role="PaperAssignment" Type="UserModel.Store.PaperAssignments" Multiplicity="1" />
+    <End Role="Review" Type="UserModel.Store.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaperAssignment">
+        <PropertyRef Name="id_paper_assignment" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="PaperAssignment_id_paper_assignment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserAuthor">
+    <End Role="User" Type="UserModel.Store.Users" Multiplicity="1" />
+    <End Role="Author" Type="UserModel.Store.Authors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Author">
+        <PropertyRef Name="User_id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AuthorPaper">
+    <End Role="Author" Type="UserModel.Store.Authors" Multiplicity="1" />
+    <End Role="Paper" Type="UserModel.Store.Papers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="id_author" />
+      </Principal>
+      <Dependent Role="Paper">
+        <PropertyRef Name="Author_id_author" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="UserModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="UserModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="UserModel.User" cg:GetterAccess="Internal" />
+          <EntitySet Name="Conferences" EntityType="UserModel.Conference" />
+          <AssociationSet Name="ConferenceChair" Association="UserModel.ConferenceChair">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Conference" EntitySet="Conferences" />
+          </AssociationSet>
+          <EntitySet Name="PCmembers" EntityType="UserModel.PCmember" />
+          <AssociationSet Name="PCmembersUser" Association="UserModel.PCmembersUser">
+            <End Role="PCmembers" EntitySet="PCmembers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Papers" EntityType="UserModel.Paper" />
+          <AssociationSet Name="PCmemberConference" Association="UserModel.PCmemberConference">
+            <End Role="PCmember" EntitySet="PCmembers" />
+            <End Role="Conference" EntitySet="Conferences" />
+          </AssociationSet>
+          <EntitySet Name="Subreviewers" EntityType="UserModel.Subreviewer" />
+          <AssociationSet Name="UserSubreviewer" Association="UserModel.UserSubreviewer">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Subreviewer" EntitySet="Subreviewers" />
+          </AssociationSet>
+          <EntitySet Name="Subreviews1" EntityType="UserModel.Subreview" />
+          <AssociationSet Name="SubreviewSubreviewer" Association="UserModel.SubreviewSubreviewer">
+            <End Role="Subreview" EntitySet="Subreviews1" />
+            <End Role="Subreviewer" EntitySet="Subreviewers" />
+          </AssociationSet>
+          <EntitySet Name="PaperAssignments" EntityType="UserModel.PaperAssignment" />
+          <AssociationSet Name="PaperAssignmentPCmember" Association="UserModel.PaperAssignmentPCmember">
+            <End Role="PaperAssignment" EntitySet="PaperAssignments" />
+            <End Role="PCmember" EntitySet="PCmembers" />
+          </AssociationSet>
+          <AssociationSet Name="PaperAssignmentSubreviewer" Association="UserModel.PaperAssignmentSubreviewer">
+            <End Role="PaperAssignment" EntitySet="PaperAssignments" />
+            <End Role="Subreviewer" EntitySet="Subreviewers" />
+          </AssociationSet>
+          <AssociationSet Name="PaperPaperAssignment" Association="UserModel.PaperPaperAssignment">
+            <End Role="Paper" EntitySet="Papers" />
+            <End Role="PaperAssignment" EntitySet="PaperAssignments" />
+          </AssociationSet>
+          <EntitySet Name="Reviews" EntityType="UserModel.Review" />
+          <AssociationSet Name="PaperAssignmentReview" Association="UserModel.PaperAssignmentReview">
+            <End Role="PaperAssignment" EntitySet="PaperAssignments" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <EntitySet Name="Authors" EntityType="UserModel.Author" />
+          <AssociationSet Name="UserAuthor" Association="UserModel.UserAuthor">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Author" EntitySet="Authors" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorPaper" Association="UserModel.AuthorPaper">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Paper" EntitySet="Papers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User" cg:TypeAccess="Public">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="institution" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="verified_account" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_verification_send" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_active" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="verification_key" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="PCmembers" Relationship="UserModel.PCmembersUser" FromRole="User" ToRole="PCmembers" />
+          <NavigationProperty Name="Subreviewers" Relationship="UserModel.UserSubreviewer" FromRole="User" ToRole="Subreviewer" />
+          <NavigationProperty Name="Authors" Relationship="UserModel.UserAuthor" FromRole="User" ToRole="Author" />
+        </EntityType>
+        <EntityType Name="Conference">
+          <Key>
+            <PropertyRef Name="id_conference" />
+          </Key>
+          <Property Name="id_conference" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="conference_name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="location" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Chair" Relationship="UserModel.ConferenceChair" FromRole="Conference" ToRole="User" />
+          <NavigationProperty Name="PCmembers" Relationship="UserModel.PCmemberConference" FromRole="Conference" ToRole="PCmember" />
+        </EntityType>
+        <Association Name="ConferenceChair">
+          <End Type="UserModel.User" Role="User" Multiplicity="1" />
+          <End Type="UserModel.Conference" Role="Conference" Multiplicity="*" />
+        </Association>
+        <EntityType Name="PCmember">
+          <Key>
+            <PropertyRef Name="id_pcmember" />
+          </Key>
+          <Property Name="id_pcmember" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="id_conference" Type="Int32" Nullable="false" />
+          <Property Name="is_chair" Type="Boolean" Nullable="false" />
+          <Property Name="dateinvitationsent" Type="DateTime" Nullable="false" />
+          <Property Name="dateinvitationacc" Type="DateTime" Nullable="false" />
+          <Property Name="is_valid" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="UserModel.PCmembersUser" FromRole="PCmembers" ToRole="User" />
+          <NavigationProperty Name="Conference" Relationship="UserModel.PCmemberConference" FromRole="PCmember" ToRole="Conference" />
+          <NavigationProperty Name="PaperAssignments" Relationship="UserModel.PaperAssignmentPCmember" FromRole="PCmember" ToRole="PaperAssignment" />
+        </EntityType>
+        <Association Name="PCmembersUser">
+          <End Type="UserModel.PCmember" Role="PCmembers" Multiplicity="*" />
+          <End Type="UserModel.User" Role="User" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Paper">
+          <Key>
+            <PropertyRef Name="id_paper" />
+          </Key>
+          <Property Name="id_paper" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_conference" Type="String" Nullable="false" />
+          <Property Name="title" Type="String" Nullable="false" />
+          <Property Name="pdf" Type="Binary" Nullable="false" />
+          <Property Name="date_submitted" Type="Time" Nullable="false" />
+          <Property Name="is_submitted" Type="Boolean" Nullable="false" />
+          <Property Name="decision" Type="String" Nullable="false" />
+          <Property Name="decision_text" Type="String" Nullable="false" />
+          <Property Name="decision_date" Type="Time" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" />
+          <Property Name="au" Type="String" Nullable="false" />
+          <NavigationProperty Name="PaperAssignments" Relationship="UserModel.PaperPaperAssignment" FromRole="Paper" ToRole="PaperAssignment" />
+          <NavigationProperty Name="Author" Relationship="UserModel.AuthorPaper" FromRole="Paper" ToRole="Author" />
+        </EntityType>
+        <Association Name="PCmemberConference">
+          <End Type="UserModel.PCmember" Role="PCmember" Multiplicity="*" />
+          <End Type="UserModel.Conference" Role="Conference" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Subreviewer">
+          <Key>
+            <PropertyRef Name="id_subreviewer" />
+          </Key>
+          <Property Name="id_subreviewer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_paperassignment" Type="Int32" Nullable="false" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="invitation_send_date" Type="DateTime" Nullable="false" />
+          <Property Name="invitation_ack" Type="String" Nullable="false" />
+          <Property Name="is_accepted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="UserModel.UserSubreviewer" FromRole="Subreviewer" ToRole="User" />
+          <NavigationProperty Name="Subreviews" Relationship="UserModel.SubreviewSubreviewer" FromRole="Subreviewer" ToRole="Subreview" />
+          <NavigationProperty Name="PaperAssignment" Relationship="UserModel.PaperAssignmentSubreviewer" FromRole="Subreviewer" ToRole="PaperAssignment" />
+        </EntityType>
+        <Association Name="UserSubreviewer">
+          <End Type="UserModel.User" Role="User" Multiplicity="1" />
+          <End Type="UserModel.Subreviewer" Role="Subreviewer" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Subreview">
+          <Key>
+            <PropertyRef Name="id_subreview" />
+          </Key>
+          <Property Name="id_subreview" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_subreviewer" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Int32" Nullable="false" />
+          <Property Name="confidence" Type="Int32" Nullable="false" />
+          <Property Name="comments" Type="String" Nullable="false" />
+          <Property Name="comment_to_edit" Type="String" Nullable="false" />
+          <Property Name="date_submitted" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Subreviewer" Relationship="UserModel.SubreviewSubreviewer" FromRole="Subreview" ToRole="Subreviewer" />
+        </EntityType>
+        <Association Name="SubreviewSubreviewer">
+          <End Type="UserModel.Subreview" Role="Subreview" Multiplicity="*" />
+          <End Type="UserModel.Subreviewer" Role="Subreviewer" Multiplicity="1" />
+        </Association>
+        <EntityType Name="PaperAssignment">
+          <Key>
+            <PropertyRef Name="id_paper_assignment" />
+          </Key>
+          <Property Name="id_paper_assignment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_paper" Type="Int32" Nullable="false" />
+          <Property Name="id_pcmember" Type="Int32" Nullable="false" />
+          <Property Name="date_assigned" Type="DateTime" Nullable="false" />
+          <Property Name="date_due" Type="DateTime" Nullable="false" />
+          <Property Name="is_delegated" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PCmember" Relationship="UserModel.PaperAssignmentPCmember" FromRole="PaperAssignment" ToRole="PCmember" />
+          <NavigationProperty Name="Subreviewers" Relationship="UserModel.PaperAssignmentSubreviewer" FromRole="PaperAssignment" ToRole="Subreviewer" />
+          <NavigationProperty Name="Paper" Relationship="UserModel.PaperPaperAssignment" FromRole="PaperAssignment" ToRole="Paper" />
+          <NavigationProperty Name="Reviews" Relationship="UserModel.PaperAssignmentReview" FromRole="PaperAssignment" ToRole="Review" />
+        </EntityType>
+        <Association Name="PaperAssignmentPCmember">
+          <End Type="UserModel.PaperAssignment" Role="PaperAssignment" Multiplicity="*" />
+          <End Type="UserModel.PCmember" Role="PCmember" Multiplicity="1" />
+        </Association>
+        <Association Name="PaperAssignmentSubreviewer">
+          <End Type="UserModel.PaperAssignment" Role="PaperAssignment" Multiplicity="1" />
+          <End Type="UserModel.Subreviewer" Role="Subreviewer" Multiplicity="*" />
+        </Association>
+        <Association Name="PaperPaperAssignment">
+          <End Type="UserModel.Paper" Role="Paper" Multiplicity="1" />
+          <End Type="UserModel.PaperAssignment" Role="PaperAssignment" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="id_review" />
+          </Key>
+          <Property Name="id_review" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_paper_assignment" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Int32" Nullable="false" />
+          <Property Name="confidence" Type="Int32" Nullable="false" />
+          <Property Name="comment" Type="String" Nullable="false" />
+          <Property Name="comment_to_edit" Type="String" Nullable="false" />
+          <Property Name="date_submitted" Type="String" Nullable="false" />
+          <Property Name="from_subreviewer" Type="String" Nullable="false" />
+          <NavigationProperty Name="PaperAssignment" Relationship="UserModel.PaperAssignmentReview" FromRole="Review" ToRole="PaperAssignment" />
+        </EntityType>
+        <Association Name="PaperAssignmentReview">
+          <End Type="UserModel.PaperAssignment" Role="PaperAssignment" Multiplicity="1" />
+          <End Type="UserModel.Review" Role="Review" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="id_author" />
+          </Key>
+          <Property Name="id_author" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_paper" Type="Int32" Nullable="false" />
+          <Property Name="is_coresponding" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="UserModel.UserAuthor" FromRole="Author" ToRole="User" />
+          <NavigationProperty Name="Papers" Relationship="UserModel.AuthorPaper" FromRole="Author" ToRole="Paper" />
+        </EntityType>
+        <Association Name="UserAuthor">
+          <End Type="UserModel.User" Role="User" Multiplicity="1" />
+          <End Type="UserModel.Author" Role="Author" Multiplicity="*" />
+        </Association>
+        <Association Name="AuthorPaper">
+          <End Type="UserModel.Author" Role="Author" Multiplicity="1" />
+          <End Type="UserModel.Paper" Role="Paper" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UserModelStoreContainer" CdmEntityContainer="UserModelContainer">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="institution" ColumnName="institution" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="verified_account" ColumnName="verified_account" />
+          <ScalarProperty Name="date_verification_send" ColumnName="date_verification_send" />
+          <ScalarProperty Name="date_active" ColumnName="date_active" />
+          <ScalarProperty Name="verification_key" ColumnName="verification_key" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Conferences">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.Conference)">
+        <MappingFragment StoreEntitySet="Conferences">
+          <ScalarProperty Name="id_conference" ColumnName="id_conference" />
+          <ScalarProperty Name="conference_name" ColumnName="conference_name" />
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PCmembers">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.PCmember)">
+        <MappingFragment StoreEntitySet="PCmembers">
+          <ScalarProperty Name="id_pcmember" ColumnName="id_pcmember" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="id_conference" ColumnName="id_conference" />
+          <ScalarProperty Name="is_chair" ColumnName="is_chair" />
+          <ScalarProperty Name="dateinvitationsent" ColumnName="dateinvitationsent" />
+          <ScalarProperty Name="dateinvitationacc" ColumnName="dateinvitationacc" />
+          <ScalarProperty Name="is_valid" ColumnName="is_valid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Papers">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.Paper)">
+        <MappingFragment StoreEntitySet="Papers">
+          <ScalarProperty Name="id_paper" ColumnName="id_paper" />
+          <ScalarProperty Name="id_conference" ColumnName="id_conference" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="pdf" ColumnName="pdf" />
+          <ScalarProperty Name="date_submitted" ColumnName="date_submitted" />
+          <ScalarProperty Name="is_submitted" ColumnName="is_submitted" />
+          <ScalarProperty Name="decision" ColumnName="decision" />
+          <ScalarProperty Name="decision_text" ColumnName="decision_text" />
+          <ScalarProperty Name="decision_date" ColumnName="decision_date" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="au" ColumnName="au" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subreviewers">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.Subreviewer)">
+        <MappingFragment StoreEntitySet="Subreviewers">
+          <ScalarProperty Name="id_subreviewer" ColumnName="id_subreviewer" />
+          <ScalarProperty Name="id_paperassignment" ColumnName="id_paperassignment" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
+          <ScalarProperty Name="invitation_send_date" ColumnName="invitation_send_date" />
+          <ScalarProperty Name="invitation_ack" ColumnName="invitation_ack" />
+          <ScalarProperty Name="is_accepted" ColumnName="is_accepted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subreviews1">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.Subreview)">
+        <MappingFragment StoreEntitySet="Subreviews1">
+          <ScalarProperty Name="id_subreview" ColumnName="id_subreview" />
+          <ScalarProperty Name="id_subreviewer" ColumnName="id_subreviewer" />
+          <ScalarProperty Name="grade" ColumnName="grade" />
+          <ScalarProperty Name="confidence" ColumnName="confidence" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="comment_to_edit" ColumnName="comment_to_edit" />
+          <ScalarProperty Name="date_submitted" ColumnName="date_submitted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaperAssignments">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.PaperAssignment)">
+        <MappingFragment StoreEntitySet="PaperAssignments">
+          <ScalarProperty Name="id_paper_assignment" ColumnName="id_paper_assignment" />
+          <ScalarProperty Name="id_paper" ColumnName="id_paper" />
+          <ScalarProperty Name="id_pcmember" ColumnName="id_pcmember" />
+          <ScalarProperty Name="date_assigned" ColumnName="date_assigned" />
+          <ScalarProperty Name="date_due" ColumnName="date_due" />
+          <ScalarProperty Name="is_delegated" ColumnName="is_delegated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reviews">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.Review)">
+        <MappingFragment StoreEntitySet="Reviews">
+          <ScalarProperty Name="id_review" ColumnName="id_review" />
+          <ScalarProperty Name="id_paper_assignment" ColumnName="id_paper_assignment" />
+          <ScalarProperty Name="grade" ColumnName="grade" />
+          <ScalarProperty Name="confidence" ColumnName="confidence" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="comment_to_edit" ColumnName="comment_to_edit" />
+          <ScalarProperty Name="date_submitted" ColumnName="date_submitted" />
+          <ScalarProperty Name="from_subreviewer" ColumnName="from_subreviewer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="IsTypeOf(UserModel.Author)">
+        <MappingFragment StoreEntitySet="Authors">
+          <ScalarProperty Name="id_author" ColumnName="id_author" />
+          <ScalarProperty Name="id_paper" ColumnName="id_paper" />
+          <ScalarProperty Name="is_coresponding" ColumnName="is_coresponding" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ConferenceChair" TypeName="UserModel.ConferenceChair" StoreEntitySet="Conferences">
+      <EndProperty Name="User">
+        <ScalarProperty Name="id_user" ColumnName="Chair_id_user" />
+      </EndProperty>
+      <EndProperty Name="Conference">
+        <ScalarProperty Name="id_conference" ColumnName="id_conference" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PCmembersUser" TypeName="UserModel.PCmembersUser" StoreEntitySet="PCmembers">
+      <EndProperty Name="User">
+        <ScalarProperty Name="id_user" ColumnName="User_id_user" />
+      </EndProperty>
+      <EndProperty Name="PCmembers">
+        <ScalarProperty Name="id_pcmember" ColumnName="id_pcmember" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PCmemberConference" TypeName="UserModel.PCmemberConference" StoreEntitySet="PCmembers">
+      <EndProperty Name="Conference">
+        <ScalarProperty Name="id_conference" ColumnName="Conference_id_conference" />
+      </EndProperty>
+      <EndProperty Name="PCmember">
+        <ScalarProperty Name="id_pcmember" ColumnName="id_pcmember" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserSubreviewer" TypeName="UserModel.UserSubreviewer" StoreEntitySet="Subreviewers">
+      <EndProperty Name="User">
+        <ScalarProperty Name="id_user" ColumnName="User_id_user" />
+      </EndProperty>
+      <EndProperty Name="Subreviewer">
+        <ScalarProperty Name="id_subreviewer" ColumnName="id_subreviewer" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SubreviewSubreviewer" TypeName="UserModel.SubreviewSubreviewer" StoreEntitySet="Subreviews1">
+      <EndProperty Name="Subreviewer">
+        <ScalarProperty Name="id_subreviewer" ColumnName="Subreviewer_id_subreviewer" />
+      </EndProperty>
+      <EndProperty Name="Subreview">
+        <ScalarProperty Name="id_subreview" ColumnName="id_subreview" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PaperAssignmentPCmember" TypeName="UserModel.PaperAssignmentPCmember" StoreEntitySet="PaperAssignments">
+      <EndProperty Name="PCmember">
+        <ScalarProperty Name="id_pcmember" ColumnName="PCmember_id_pcmember" />
+      </EndProperty>
+      <EndProperty Name="PaperAssignment">
+        <ScalarProperty Name="id_paper_assignment" ColumnName="id_paper_assignment" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PaperAssignmentSubreviewer" TypeName="UserModel.PaperAssignmentSubreviewer" StoreEntitySet="Subreviewers">
+      <EndProperty Name="PaperAssignment">
+        <ScalarProperty Name="id_paper_assignment" ColumnName="PaperAssignment_id_paper_assignment" />
+      </EndProperty>
+      <EndProperty Name="Subreviewer">
+        <ScalarProperty Name="id_subreviewer" ColumnName="id_subreviewer" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PaperPaperAssignment" TypeName="UserModel.PaperPaperAssignment" StoreEntitySet="PaperAssignments">
+      <EndProperty Name="Paper">
+        <ScalarProperty Name="id_paper" ColumnName="Paper_id_paper" />
+      </EndProperty>
+      <EndProperty Name="PaperAssignment">
+        <ScalarProperty Name="id_paper_assignment" ColumnName="id_paper_assignment" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PaperAssignmentReview" TypeName="UserModel.PaperAssignmentReview" StoreEntitySet="Reviews">
+      <EndProperty Name="PaperAssignment">
+        <ScalarProperty Name="id_paper_assignment" ColumnName="PaperAssignment_id_paper_assignment" />
+      </EndProperty>
+      <EndProperty Name="Review">
+        <ScalarProperty Name="id_review" ColumnName="id_review" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserAuthor" TypeName="UserModel.UserAuthor" StoreEntitySet="Authors">
+      <EndProperty Name="User">
+        <ScalarProperty Name="id_user" ColumnName="User_id_user" />
+      </EndProperty>
+      <EndProperty Name="Author">
+        <ScalarProperty Name="id_author" ColumnName="id_author" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AuthorPaper" TypeName="UserModel.AuthorPaper" StoreEntitySet="Papers">
+      <EndProperty Name="Author">
+        <ScalarProperty Name="id_author" ColumnName="Author_id_author" />
+      </EndProperty>
+      <EndProperty Name="Paper">
+        <ScalarProperty Name="id_paper" ColumnName="id_paper" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

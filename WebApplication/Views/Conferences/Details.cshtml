@@ -1,0 +1,65 @@
+﻿@model WebApplication.Conference
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Conference</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.conference_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.conference_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.start_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.start_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.end_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.end_date)
+        </dd>
+
+    
+    </dl>
+    <br />
+
+    @foreach(var item in ViewBag.Users)
+    {
+      <a>@item.surname   </a> 
+      <a>@item.first_name </a>  
+      <a>@item.email </a>
+       
+        @:&nbsp
+        <a> @Html.ActionLink("Invite", "ListUsers", new { id = item.id_user })</a>
+      
+        @:&nbsp
+        <BR/>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_conference }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
