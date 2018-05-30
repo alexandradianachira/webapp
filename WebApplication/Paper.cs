@@ -23,14 +23,14 @@ namespace WebApplication
         public int id_paper { get; set; }
         public string id_conference { get; set; }
         public string title { get; set; }
-        public byte[] pdf { get; set; }
+        public string pdf { get; set; }
         public System.TimeSpan date_submitted { get; set; }
         public bool is_submitted { get; set; }
         public string decision { get; set; }
         public string decision_text { get; set; }
         public System.TimeSpan decision_date { get; set; }
         public string email { get; set; }
-        public string au { get; set; }
+        public string author { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaperAssignment> PaperAssignments { get; set; }

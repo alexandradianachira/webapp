@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/13/2018 15:57:31
+-- Date Created: 05/16/2018 12:27:26
 -- Generated from EDMX file: D:\anul III\WebApplication\WebApplication\UserModel.edmx
 -- --------------------------------------------------
 
@@ -132,14 +132,14 @@ CREATE TABLE [dbo].[Papers] (
     [id_paper] int IDENTITY(1,1) NOT NULL,
     [id_conference] nvarchar(max)  NOT NULL,
     [title] nvarchar(max)  NOT NULL,
-    [pdf] varbinary(max)  NOT NULL,
+    [pdf] nvarchar(max)  NOT NULL,
     [date_submitted] time  NOT NULL,
     [is_submitted] bit  NOT NULL,
     [decision] nvarchar(max)  NOT NULL,
     [decision_text] nvarchar(max)  NOT NULL,
     [decision_date] time  NOT NULL,
     [email] nvarchar(max)  NOT NULL,
-    [au] nvarchar(max)  NOT NULL,
+    [author] nvarchar(max)  NOT NULL,
     [Author_id_author] int  NOT NULL
 );
 GO

@@ -107,14 +107,14 @@
     <Property Name="id_paper" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_conference" Type="nvarchar(max)" Nullable="false" />
     <Property Name="title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="pdf" Type="varbinary(max)" Nullable="false" />
+    <Property Name="pdf" Type="nvarchar(max)" Nullable="false" />
     <Property Name="date_submitted" Type="time" Nullable="false" />
     <Property Name="is_submitted" Type="bit" Nullable="false" />
     <Property Name="decision" Type="nvarchar(max)" Nullable="false" />
     <Property Name="decision_text" Type="nvarchar(max)" Nullable="false" />
     <Property Name="decision_date" Type="time" Nullable="false" />
     <Property Name="email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="au" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="author" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Author_id_author" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Subreviewers">
@@ -430,14 +430,14 @@
           <Property Name="id_paper" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_conference" Type="String" Nullable="false" />
           <Property Name="title" Type="String" Nullable="false" />
-          <Property Name="pdf" Type="Binary" Nullable="false" />
+          <Property Name="pdf" Type="String" Nullable="false" />
           <Property Name="date_submitted" Type="Time" Nullable="false" />
           <Property Name="is_submitted" Type="Boolean" Nullable="false" />
           <Property Name="decision" Type="String" Nullable="false" />
           <Property Name="decision_text" Type="String" Nullable="false" />
           <Property Name="decision_date" Type="Time" Nullable="false" />
           <Property Name="email" Type="String" Nullable="false" />
-          <Property Name="au" Type="String" Nullable="false" />
+          <Property Name="author" Type="String" Nullable="false" />
           <NavigationProperty Name="PaperAssignments" Relationship="UserModel.PaperPaperAssignment" FromRole="Paper" ToRole="PaperAssignment" />
           <NavigationProperty Name="Author" Relationship="UserModel.AuthorPaper" FromRole="Paper" ToRole="Author" />
         </EntityType>
@@ -602,7 +602,7 @@
           <ScalarProperty Name="decision_text" ColumnName="decision_text" />
           <ScalarProperty Name="decision_date" ColumnName="decision_date" />
           <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="au" ColumnName="au" />
+          <ScalarProperty Name="author" ColumnName="author" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
