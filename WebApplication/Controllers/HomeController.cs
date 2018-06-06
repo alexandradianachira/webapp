@@ -9,7 +9,10 @@ namespace WebApplication.Controllers
     public class HomeController : Controller
     {
         private UserModelContainer db = new UserModelContainer();
-       
+       public ActionResult ex()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
            

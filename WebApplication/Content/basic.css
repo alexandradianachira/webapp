@@ -1,9 +1,5 @@
 ﻿body {
+    background-image:url('img/image.png');
+    background-repeat:no-repeat;
+    background-attachment:fixed;
 }
-h1 {
-    color: navajowhite;
-    margin-left: 20px;
-}
-
-Accept {background-color: #4CAF50;} /* Green */
-Decline {background-color: #f44336;} /* red*/

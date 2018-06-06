@@ -8,28 +8,27 @@
     <h1>Get your paper published</h1>
     <link rel="stylesheet" href="~/Content/basic.css" type="text/css" />
     <p class="lead"> Maintain standards of quality, improve performance and provide credibility </p>
-    @*<p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <div>
-            <p>
-                <ul>
 
-                    <li>@Html.ActionLink("Create an account", "Create", "NewUser")</li>
-                    <li>@Html.ActionLink("Login", "Index", "Login")</li>
-                </ul>
-            </p>
-        </div>
-        @*<p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
-    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <div>
+                <p>
+                    <ul>
+
+                        <li>@Html.ActionLink("Create an account", "Create", "NewUser")</li>
+                        <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                    </ul>
+                </p>
+            </div>
+     </div>
 
 
-    <div class="col-md-4">
+<div class="col-md-4">
 
-       
+
             <h2>My conferences</h2>
             @if(Session["User"]==null)
             {
@@ -42,13 +41,13 @@
             }
 
 
-        
+
     </div>
-    <div class="col-md-4">
+<div class="col-md-4">
         <p>
             We are helping you by reviewing your work by one or more people who are capable and professionally similar to check and forward the publication of this paper in the proceedings of a conference or in a scientific journal.
         </p>
 
     </div>
+        </div>
 
-</div>
