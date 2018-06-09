@@ -74,6 +74,7 @@
     <Property Name="date_verification_send" Type="datetime" Nullable="false" />
     <Property Name="date_active" Type="datetime" Nullable="false" />
     <Property Name="verification_key" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Authors_id_author" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Conferences">
     <Key>
@@ -94,8 +95,8 @@
     <Property Name="id_user" Type="int" Nullable="false" />
     <Property Name="id_conference" Type="int" Nullable="false" />
     <Property Name="is_chair" Type="bit" Nullable="false" />
-    <Property Name="dateinvitationsent" Type="datetime" Nullable="false" />
-    <Property Name="dateinvitationacc" Type="datetime" Nullable="false" />
+    <Property Name="date_invitation_sent" Type="datetime" Nullable="false" />
+    <Property Name="date_invitation_acc" Type="datetime" Nullable="false" />
     <Property Name="is_valid" Type="bit" Nullable="false" />
     <Property Name="User_id_user" Type="int" Nullable="false" />
     <Property Name="Conference_id_conference" Type="int" Nullable="false" />
@@ -122,7 +123,7 @@
       <PropertyRef Name="id_subreviewer" />
     </Key>
     <Property Name="id_subreviewer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_paperassignment" Type="int" Nullable="false" />
+    <Property Name="id_paper_assignment" Type="int" Nullable="false" />
     <Property Name="id_user" Type="int" Nullable="false" />
     <Property Name="invitation_send_date" Type="datetime" Nullable="false" />
     <Property Name="invitation_ack" Type="nvarchar(max)" Nullable="false" />
@@ -177,7 +178,7 @@
     <Property Name="id_author" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_paper" Type="int" Nullable="false" />
     <Property Name="is_coresponding" Type="bit" Nullable="false" />
-    <Property Name="User_id_user" Type="int" Nullable="false" />
+    <Property Name="id_user" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="ConferenceChair">
     <End Role="User" Type="UserModel.Store.Users" Multiplicity="1" />
@@ -288,14 +289,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserAuthor">
-    <End Role="User" Type="UserModel.Store.Users" Multiplicity="1" />
-    <End Role="Author" Type="UserModel.Store.Authors" Multiplicity="*" />
+    <End Role="User" Type="UserModel.Store.Users" Multiplicity="*" />
+    <End Role="Author" Type="UserModel.Store.Authors" Multiplicity="1" />
     <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="id_user" />
+      <Principal Role="Author">
+        <PropertyRef Name="id_author" />
       </Principal>
-      <Dependent Role="Author">
-        <PropertyRef Name="User_id_user" />
+      <Dependent Role="User">
+        <PropertyRef Name="Authors_id_author" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -412,8 +413,8 @@
           <Property Name="id_user" Type="Int32" Nullable="false" />
           <Property Name="id_conference" Type="Int32" Nullable="false" />
           <Property Name="is_chair" Type="Boolean" Nullable="false" />
-          <Property Name="dateinvitationsent" Type="DateTime" Nullable="false" />
-          <Property Name="dateinvitationacc" Type="DateTime" Nullable="false" />
+          <Property Name="date_invitation_sent" Type="DateTime" Nullable="false" />
+          <Property Name="date_invitation_acc" Type="DateTime" Nullable="false" />
           <Property Name="is_valid" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="UserModel.PCmembersUser" FromRole="PCmembers" ToRole="User" />
           <NavigationProperty Name="Conference" Relationship="UserModel.PCmemberConference" FromRole="PCmember" ToRole="Conference" />
@@ -450,7 +451,7 @@
             <PropertyRef Name="id_subreviewer" />
           </Key>
           <Property Name="id_subreviewer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_paperassignment" Type="Int32" Nullable="false" />
+          <Property Name="id_paper_assignment" Type="Int32" Nullable="false" />
           <Property Name="id_user" Type="Int32" Nullable="false" />
           <Property Name="invitation_send_date" Type="DateTime" Nullable="false" />
           <Property Name="invitation_ack" Type="String" Nullable="false" />
@@ -534,10 +535,11 @@
           <Property Name="is_coresponding" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="UserModel.UserAuthor" FromRole="Author" ToRole="User" />
           <NavigationProperty Name="Papers" Relationship="UserModel.AuthorPaper" FromRole="Author" ToRole="Paper" />
+          <Property Name="id_user" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="UserAuthor">
           <End Type="UserModel.User" Role="User" Multiplicity="1" />
-          <End Type="UserModel.Author" Role="Author" Multiplicity="*" />
+          <End Type="UserModel.Author" Role="Author" Multiplicity="1" />
         </Association>
         <Association Name="AuthorPaper">
           <End Type="UserModel.Author" Role="Author" Multiplicity="1" />
@@ -583,8 +585,8 @@
           <ScalarProperty Name="id_user" ColumnName="id_user" />
           <ScalarProperty Name="id_conference" ColumnName="id_conference" />
           <ScalarProperty Name="is_chair" ColumnName="is_chair" />
-          <ScalarProperty Name="dateinvitationsent" ColumnName="dateinvitationsent" />
-          <ScalarProperty Name="dateinvitationacc" ColumnName="dateinvitationacc" />
+          <ScalarProperty Name="date_invitation_sent" ColumnName="date_invitation_sent" />
+          <ScalarProperty Name="date_invitation_acc" ColumnName="date_invitation_acc" />
           <ScalarProperty Name="is_valid" ColumnName="is_valid" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -610,7 +612,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(UserModel.Subreviewer)">
         <MappingFragment StoreEntitySet="Subreviewers">
           <ScalarProperty Name="id_subreviewer" ColumnName="id_subreviewer" />
-          <ScalarProperty Name="id_paperassignment" ColumnName="id_paperassignment" />
+          <ScalarProperty Name="id_paper_assignment" ColumnName="id_paper_assignment" />
           <ScalarProperty Name="id_user" ColumnName="id_user" />
           <ScalarProperty Name="invitation_send_date" ColumnName="invitation_send_date" />
           <ScalarProperty Name="invitation_ack" ColumnName="invitation_ack" />
@@ -663,6 +665,7 @@
           <ScalarProperty Name="id_author" ColumnName="id_author" />
           <ScalarProperty Name="id_paper" ColumnName="id_paper" />
           <ScalarProperty Name="is_coresponding" ColumnName="is_coresponding" />
+          <ScalarProperty Name="id_user" ColumnName="id_user" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -738,12 +741,12 @@
         <ScalarProperty Name="id_review" ColumnName="id_review" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="UserAuthor" TypeName="UserModel.UserAuthor" StoreEntitySet="Authors">
-      <EndProperty Name="User">
-        <ScalarProperty Name="id_user" ColumnName="User_id_user" />
-      </EndProperty>
+    <AssociationSetMapping Name="UserAuthor" TypeName="UserModel.UserAuthor" StoreEntitySet="Users">
       <EndProperty Name="Author">
-        <ScalarProperty Name="id_author" ColumnName="id_author" />
+        <ScalarProperty Name="id_author" ColumnName="Authors_id_author" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="id_user" ColumnName="id_user" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="AuthorPaper" TypeName="UserModel.AuthorPaper" StoreEntitySet="Papers">

@@ -180,18 +180,18 @@ namespace WebApplication.Controllers
                 newPcMember.is_chair = false;
                 //newPcMember.User = userFound;
                 newPcMember.is_valid = false;
-                newPcMember.dateinvitationacc = DateTime.Now;
+                newPcMember.date_invitation_acc = DateTime.Now;
                 var invitation_sent = Session["date_invitation_sent"];
 
-                newPcMember.dateinvitationsent = DateTime.Now;
+                newPcMember.date_invitation_sent = DateTime.Now;
                 //newPcMember.dateinvitationacc = (DateTime)invitation_acc;
                // newPcMember.Conference = conference;
                 db.PCmembers.Add(newPcMember);
                 db.SaveChanges();
             }
             else if (Request.Form["Decline"] != null)
-            {
-                // daca refuza
+            {// daca refuza
+                
             }
 
         
@@ -289,55 +289,6 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-
-        //public ActionResult SendEmail()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult SendInv(String email, string first_name)
-        //{
-
-        //    emailSender(email, first_name);
-        //    return View();
-        //}
-
-        //public void emailSender(String email, String first_name)
-        //{
-
-        //    MailAddress fromAddress = new MailAddress("peer.review.confirmation@gmail.com");
-        //    MailAddress toAddress = new MailAddress(email);
-
-
-        //    const string fromPassword = "piqejhrgxidzojsf";
-        //    const string subject = "Invitation for review";
-        //    // var body = "Verification Key - Enter into link below " + verification_key;
-        //    var body = string.Format("Dear, {0} <BR/>  <br/> Invitation for reviewing, please click on the link to accept or decline  <a href =\"{1}\" title =\"User Email Confirm\">{1}</a>", first_name, Url.Action("AcceptDecline", "Conferences", new {email }, Request.Url.Scheme));
-
-        //    //  var body = GetFormattedMessageHTML(email, first_name,verification_key);
-
-        //    var smtp = new SmtpClient
-        //    {
-        //        Host = "smtp.gmail.com",
-        //        Port = 587,
-        //        EnableSsl = true,
-        //        DeliveryMethod = SmtpDeliveryMethod.Network,
-        //        UseDefaultCredentials = false,
-        //        Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-        //    };
-
-        //    using (var message = new MailMessage(fromAddress, toAddress)
-        //    {
-        //        Subject = subject,
-        //        Body = body,
-
-        //    })
-
-        //    {
-        //        message.IsBodyHtml = true;
-        //        smtp.Send(message);
-        //    };
-        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="36abbd07d1b141fa9e53f3d85bfaad98" Name="Diagram" ZoomLevel="64" >
+      <Diagram DiagramId="36abbd07d1b141fa9e53f3d85bfaad98" Name="Diagram" ZoomLevel="73" >
         <EntityTypeShape EntityType="UserModel.User" Width="3" PointX="6.625" PointY="3.125" />
         <EntityTypeShape EntityType="UserModel.Conference" Width="1.5" PointX="13.375" PointY="2.75" />
         <AssociationConnector Association="UserModel.ConferenceChair" ManuallyRouted="false" >
         </AssociationConnector>
-        <EntityTypeShape EntityType="UserModel.PCmember" Width="1.5" PointX="10.75" PointY="2.875" />
+        <EntityTypeShape EntityType="UserModel.PCmember" Width="1.5" PointX="10.625" PointY="2.75" />
         <AssociationConnector Association="UserModel.PCmembersUser" />
         <EntityTypeShape EntityType="UserModel.Paper" Width="1.5" PointX="11.625" PointY="7.625" />
         <AssociationConnector Association="UserModel.PCmemberConference" />

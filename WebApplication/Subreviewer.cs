@@ -21,7 +21,7 @@ namespace WebApplication
         }
     
         public int id_subreviewer { get; set; }
-        public int id_paperassignment { get; set; }
+        public int id_paper_assignment { get; set; }
         public int id_user { get; set; }
         public System.DateTime invitation_send_date { get; set; }
         public string invitation_ack { get; set; }

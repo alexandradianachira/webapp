@@ -19,7 +19,6 @@ namespace WebApplication
         {
             this.PCmembers = new HashSet<PCmember>();
             this.Subreviewers = new HashSet<Subreviewer>();
-            this.Authors = new HashSet<Author>();
         }
     
         public int id_user { get; set; }
@@ -37,11 +36,9 @@ namespace WebApplication
         public virtual ICollection<PCmember> PCmembers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subreviewer> Subreviewers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Author> Authors { get; set; }
+        public virtual Author Authors { get; set; }
 
         public String confirmPassword { get; set; }
-
         public String text { get; set; }
     }
 }

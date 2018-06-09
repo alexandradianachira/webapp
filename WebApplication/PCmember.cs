@@ -24,8 +24,8 @@ namespace WebApplication
         public int id_user { get; set; }
         public int id_conference { get; set; }
         public bool is_chair { get; set; }
-        public System.DateTime dateinvitationsent { get; set; }
-        public System.DateTime dateinvitationacc { get; set; }
+        public System.DateTime date_invitation_sent { get; set; }
+        public System.DateTime date_invitation_acc { get; set; }
         public bool is_valid { get; set; }
     
         public virtual User User { get; set; }
