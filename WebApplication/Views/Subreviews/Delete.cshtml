@@ -1,0 +1,72 @@
+﻿@model WebApplication.Subreview
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Subreview</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_subreviewer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_subreviewer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.confidence)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.confidence)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comment_to_edit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment_to_edit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_submitted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_submitted)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

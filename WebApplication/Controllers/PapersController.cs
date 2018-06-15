@@ -46,7 +46,7 @@ namespace WebApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_paper,id_conference,title,pdf,date_submitted,is_submitted,decision,decision_text,decision_date,email,au")] Paper paper)
+        public ActionResult Create([Bind(Include = "id_paper,id_conference,title,pdf,date_submitted,is_submitted,decision,decision_text,decision_date,email,contributions")] Paper paper)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +114,28 @@ namespace WebApplication.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult SubmitPaper()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitPaper([Bind(Include = "id_paper,id_conference,title,pdf,date_submitted,is_submitted,decision,decision_text,decision_date,email,contributions")] Paper paper)
+        {
+            User user= (User)Session["User"];
+            Author a = (from u in db.Authors where (u.id_user).Equals(user.id_user) select u).FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                db.Papers.Add(paper);
+                db.SaveChanges();
+                a.id_paper = paper.id_paper;
+              //conferences cu dropdown list
 
+                return RedirectToAction("Index");
+            }
+
+            return View(paper);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

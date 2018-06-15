@@ -19,6 +19,13 @@ namespace WebApplication.Controllers
            
                 return View();
         }
+        public ActionResult HCarousel()
+        {
+
+
+            return View();
+        }
+
 
         public ActionResult About()
         {

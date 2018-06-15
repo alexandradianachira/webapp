@@ -1,0 +1,66 @@
+﻿@model WebApplication.Subreview
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subreview</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_subreviewer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_subreviewer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.confidence)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.confidence)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comment_to_edit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment_to_edit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_submitted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_submitted)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_subreview }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebApplication.Subreview>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_subreviewer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.confidence)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comment_to_edit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_submitted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_subreviewer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.confidence)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comment_to_edit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_submitted)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_subreview }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_subreview }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_subreview })
+        </td>
+    </tr>
+}
+
+</table>

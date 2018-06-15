@@ -15,11 +15,17 @@ namespace WebApplication.Controllers
     {
         private UserModelContainer db = new UserModelContainer();
 
-        // GET: Conferences1
         public ActionResult Index()
         {
+
+            return View();
+        }
+
+        // GET: Conferences1
+        public ActionResult ConferenceChair()
+        {
             List<User> chairs = new List<WebApplication.User>();
-            var c = (User)Session["User"];
+            //var c = (User)Session["User"];
             List<Conference > confChair = new List<Conference>();
             User x = (User)Session["User"];
             foreach (Conference conf in db.Conferences)
@@ -29,7 +35,34 @@ namespace WebApplication.Controllers
 
             return View(confChair.ToList());
         }
-        
+
+        public ActionResult ConferencePCmember()
+
+        {
+            List<PCmember> pcmembers= new List<WebApplication.PCmember>();
+           // var c = (User)Session["User"];
+            List<Conference> confPcmember = new List<Conference>();
+            User x = (User)Session["User"];
+            foreach (Conference conf in db.Conferences)
+                if (conf.PCmembers != null)
+                    foreach (PCmember PC in conf.PCmembers)
+                    {
+                        if (PC.id_user == x.id_user)
+                            confPcmember.Add(conf);
+                       
+                    }
+                else
+                {
+                    ViewBag.Message = "You don't have any conferences";
+                    return RedirectToAction("Index", "Home");
+
+                }
+
+
+
+            return View(confPcmember.ToList());
+        }
+
         // GET: Conferences1/Details/5
         public ActionResult Details(int? id)
         {
@@ -68,7 +101,7 @@ namespace WebApplication.Controllers
             Session["getUser"] = x;
             return View(user);
         }
-       
+ 
         public ActionResult SendInvite()
         {
             
@@ -76,11 +109,11 @@ namespace WebApplication.Controllers
         }
         public ActionResult WriteText()
         {
-          
+
             return View();
         }
-
-       
+        
+      
 
         [HttpPost]
         public ActionResult WriteText([Bind(Include = "text")] User user)
@@ -175,6 +208,7 @@ namespace WebApplication.Controllers
                  newPcMember.User= db.Users.Find(id_user);
                 //id-ul conferintei pe care sunt
                 newPcMember.Conference= db.Conferences.Find(id_conference);
+                String confName = newPcMember.Conference.conference_name;
                 newPcMember.id_user = newPcMember.User.id_user;
                 newPcMember.id_conference = newPcMember.Conference.id_conference;
                 newPcMember.is_chair = false;
@@ -188,9 +222,11 @@ namespace WebApplication.Controllers
                // newPcMember.Conference = conference;
                 db.PCmembers.Add(newPcMember);
                 db.SaveChanges();
+
             }
             else if (Request.Form["Decline"] != null)
-            {// daca refuza
+            {
+                return RedirectToAction("Reconsideration", "Conferences");
                 
             }
 
@@ -199,7 +235,10 @@ namespace WebApplication.Controllers
         
             return RedirectToAction("Index", "Home");
         }
-
+        public ActionResult Reconsideration()
+        {
+            return View();
+        }
       
         
         // GET: Conferences1/Create

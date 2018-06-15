@@ -1,99 +1,31 @@
-﻿@model IEnumerable<WebApplication.Conference>
-@*@model IEnumerable<WebApplication.Models.Class>*@
+﻿
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2> Your conference(s) as a chair</h2>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<hr />
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+<h2>Conferences</h2>
+<hr />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.conference_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.start_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.end_date)
-        </th>
 
-        <th></th>
-    </tr>
+@*@Html.ActionLink("Conference as chair", "ConferenceChair", "Conferences")
+@Html.ActionLink("Conference as PCmember", "ConferencePCmember", "Conferences")
+@Html.ActionLink("Back to home", "Index", "Home")*@
 
-    @foreach (var item in Model)
-    {
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.conference_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.start_date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.end_date)
-            </td>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id_conference }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id_conference }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id_conference })
-            </td>
-        </tr>
-    }
+<div class="container">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="@Url.Action("ConferenceChair", "Conferences")">Conference(s) as chair</a></li>
+        <li><a href="@Url.Action("ConferencePCmember", "Conferences")">Conference(s) as PCmember</a></li>
+        <li><a href="@Url.Action("Index", "Home")">Back to home</a></li>
 
-</table>
-
-<h2> Your conference(s) as a PCmember</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.conference_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.start_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.end_date)
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    { 
-    {
-
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.conference_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.start_date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.end_date)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "DetailsForPCmembers", new { id = item.id_conference }) |
-            </td>
-</tr>
-        }
-    }
-</table>
+    </ul>
+</div>

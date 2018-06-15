@@ -23,9 +23,8 @@ namespace WebApplication
         public int id_author { get; set; }
         public int id_paper { get; set; }
         public bool is_coresponding { get; set; }
-        public string id_user { get; set; }
+        public int id_user { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Paper> Papers { get; set; }
     }

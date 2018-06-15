@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @*@Html.ActionLink("Hello " + Model.first_name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
@@ -19,12 +19,12 @@ else
      
          @if (Session["User"] == null)
          {
-            <li>@Html.ActionLink("New User", "Create", "NewUser")</li>
-            <li>@Html.ActionLink("Log in", "Index", "Login")</li>
+            <li>@Html.ActionLink("New User", "Create", "Users")</li>
+            <li>@Html.ActionLink("Log in", "Login", "Users")</li>
          }
          else
          {
-            <li>@Html.ActionLink("Log out", "Index", "Logout")</li>
+            <li>@Html.ActionLink("Log out", "Logout", "Users")</li>
 
          }
     </ul>

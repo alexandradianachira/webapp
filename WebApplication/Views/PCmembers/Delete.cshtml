@@ -1,0 +1,72 @@
+﻿@model WebApplication.PCmember
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PCmember</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_user)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_user)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_conference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_conference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_chair)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_chair)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_invitation_sent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_invitation_sent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_invitation_acc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_invitation_acc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_valid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_valid)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

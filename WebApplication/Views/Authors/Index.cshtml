@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.is_coresponding)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_user)
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.is_coresponding)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_user)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id_author }) |

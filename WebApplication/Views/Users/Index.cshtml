@@ -1,0 +1,60 @@
+﻿@model  WebApplication.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<link rel="stylesheet" href="~/Content/basic.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.first_name)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.institution)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+  
+        <th></th>
+    </tr>
+
+   
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem =>Model.surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.institution)
+            </td>
+            <td class="hidetext">
+                @Html.DisplayFor(modelItem => Model.first_name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.id_user }) |
+                @Html.ActionLink("Details", "Details", new { id = Model.id_user}) |
+              
+            </td>
+        </tr>
+    
+
+</table>

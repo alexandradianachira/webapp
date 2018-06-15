@@ -30,7 +30,7 @@ namespace WebApplication
         public string decision_text { get; set; }
         public System.TimeSpan decision_date { get; set; }
         public string email { get; set; }
-        public string author { get; set; }
+        public string contributions { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaperAssignment> PaperAssignments { get; set; }

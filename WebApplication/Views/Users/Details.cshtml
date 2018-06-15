@@ -1,0 +1,63 @@
+﻿
+@model WebApplication.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<link rel="stylesheet" href="~/Content/basic.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.first_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.first_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+           
+            @Html.DisplayNameFor(model => model.institution)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.institution)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+
+        <dd class="hidetext" style="width:200px">
+            @Html.DisplayFor(model => model.password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_user }) |
+    @Html.ActionLink("Back", "Index")
+</p>

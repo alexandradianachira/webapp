@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/08/2018 23:25:21
+-- Date Created: 06/15/2018 21:05:50
 -- Generated from EDMX file: D:\anul III\WebApplication\WebApplication\UserModel.edmx
 -- --------------------------------------------------
 
@@ -21,16 +21,16 @@ IF OBJECT_ID(N'[dbo].[FK_ConferenceChair]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Conferences] DROP CONSTRAINT [FK_ConferenceChair];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PCmembersUser]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Pcmembers] DROP CONSTRAINT [FK_PCmembersUser];
+    ALTER TABLE [dbo].[PCmembers] DROP CONSTRAINT [FK_PCmembersUser];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PCmemberConference]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Pcmembers] DROP CONSTRAINT [FK_PCmemberConference];
+    ALTER TABLE [dbo].[PCmembers] DROP CONSTRAINT [FK_PCmemberConference];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserSubreviewer]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Subreviewers] DROP CONSTRAINT [FK_UserSubreviewer];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SubreviewSubreviewer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Subreviews1] DROP CONSTRAINT [FK_SubreviewSubreviewer];
+    ALTER TABLE [dbo].[Subreviews] DROP CONSTRAINT [FK_SubreviewSubreviewer];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PaperAssignmentPCmember]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PaperAssignments] DROP CONSTRAINT [FK_PaperAssignmentPCmember];
@@ -43,9 +43,6 @@ IF OBJECT_ID(N'[dbo].[FK_PaperPaperAssignment]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_PaperAssignmentReview]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Reviews] DROP CONSTRAINT [FK_PaperAssignmentReview];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserAuthor]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_UserAuthor];
 GO
 IF OBJECT_ID(N'[dbo].[FK_AuthorPaper]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Papers] DROP CONSTRAINT [FK_AuthorPaper];
@@ -61,8 +58,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Conferences]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Conferences];
 GO
-IF OBJECT_ID(N'[dbo].[Pcmembers]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Pcmembers];
+IF OBJECT_ID(N'[dbo].[PCmembers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PCmembers];
 GO
 IF OBJECT_ID(N'[dbo].[Papers]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Papers];
@@ -70,8 +67,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Subreviewers]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Subreviewers];
 GO
-IF OBJECT_ID(N'[dbo].[Subreviews1]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Subreviews1];
+IF OBJECT_ID(N'[dbo].[Subreviews]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Subreviews];
 GO
 IF OBJECT_ID(N'[dbo].[PaperAssignments]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PaperAssignments];
@@ -98,8 +95,7 @@ CREATE TABLE [dbo].[Users] (
     [verified_account] datetime  NOT NULL,
     [date_verification_send] datetime  NOT NULL,
     [date_active] datetime  NOT NULL,
-    [verification_key] nvarchar(max)  NOT NULL,
-    [Authors_id_author] int  NOT NULL
+    [verification_key] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -140,7 +136,7 @@ CREATE TABLE [dbo].[Papers] (
     [decision_text] nvarchar(max)  NOT NULL,
     [decision_date] time  NOT NULL,
     [email] nvarchar(max)  NOT NULL,
-    [author] nvarchar(max)  NOT NULL,
+    [contributions] nvarchar(max)  NOT NULL,
     [Author_id_author] int  NOT NULL
 );
 GO
@@ -158,11 +154,11 @@ CREATE TABLE [dbo].[Subreviewers] (
 );
 GO
 
--- Creating table 'Subreviews1'
-CREATE TABLE [dbo].[Subreviews1] (
+-- Creating table 'Subreviews'
+CREATE TABLE [dbo].[Subreviews] (
     [id_subreview] int IDENTITY(1,1) NOT NULL,
     [id_subreviewer] int  NOT NULL,
-    [grade] int  NOT NULL,
+    [grade] float  NOT NULL,
     [confidence] int  NOT NULL,
     [comments] nvarchar(max)  NOT NULL,
     [comment_to_edit] nvarchar(max)  NOT NULL,
@@ -188,7 +184,7 @@ GO
 CREATE TABLE [dbo].[Reviews] (
     [id_review] int IDENTITY(1,1) NOT NULL,
     [id_paper_assignment] int  NOT NULL,
-    [grade] int  NOT NULL,
+    [grade] float  NOT NULL,
     [confidence] int  NOT NULL,
     [comment] nvarchar(max)  NOT NULL,
     [comment_to_edit] nvarchar(max)  NOT NULL,
@@ -203,7 +199,7 @@ CREATE TABLE [dbo].[Authors] (
     [id_author] int IDENTITY(1,1) NOT NULL,
     [id_paper] int  NOT NULL,
     [is_coresponding] bit  NOT NULL,
-    [id_user] nvarchar(max)  NOT NULL
+    [id_user] int  NOT NULL
 );
 GO
 
@@ -241,9 +237,9 @@ ADD CONSTRAINT [PK_Subreviewers]
     PRIMARY KEY CLUSTERED ([id_subreviewer] ASC);
 GO
 
--- Creating primary key on [id_subreview] in table 'Subreviews1'
-ALTER TABLE [dbo].[Subreviews1]
-ADD CONSTRAINT [PK_Subreviews1]
+-- Creating primary key on [id_subreview] in table 'Subreviews'
+ALTER TABLE [dbo].[Subreviews]
+ADD CONSTRAINT [PK_Subreviews]
     PRIMARY KEY CLUSTERED ([id_subreview] ASC);
 GO
 
@@ -329,8 +325,8 @@ ON [dbo].[Subreviewers]
     ([User_id_user]);
 GO
 
--- Creating foreign key on [Subreviewer_id_subreviewer] in table 'Subreviews1'
-ALTER TABLE [dbo].[Subreviews1]
+-- Creating foreign key on [Subreviewer_id_subreviewer] in table 'Subreviews'
+ALTER TABLE [dbo].[Subreviews]
 ADD CONSTRAINT [FK_SubreviewSubreviewer]
     FOREIGN KEY ([Subreviewer_id_subreviewer])
     REFERENCES [dbo].[Subreviewers]
@@ -340,7 +336,7 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SubreviewSubreviewer'
 CREATE INDEX [IX_FK_SubreviewSubreviewer]
-ON [dbo].[Subreviews1]
+ON [dbo].[Subreviews]
     ([Subreviewer_id_subreviewer]);
 GO
 
@@ -402,21 +398,6 @@ GO
 CREATE INDEX [IX_FK_PaperAssignmentReview]
 ON [dbo].[Reviews]
     ([PaperAssignment_id_paper_assignment]);
-GO
-
--- Creating foreign key on [Authors_id_author] in table 'Users'
-ALTER TABLE [dbo].[Users]
-ADD CONSTRAINT [FK_UserAuthor]
-    FOREIGN KEY ([Authors_id_author])
-    REFERENCES [dbo].[Authors]
-        ([id_author])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UserAuthor'
-CREATE INDEX [IX_FK_UserAuthor]
-ON [dbo].[Users]
-    ([Authors_id_author]);
 GO
 
 -- Creating foreign key on [Author_id_author] in table 'Papers'

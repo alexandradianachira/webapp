@@ -17,8 +17,6 @@ namespace WebApplication.Controllers
         // GET: Authors
         public ActionResult Index()
         {
-           
-           
             return View(db.Authors.ToList());
         }
 
@@ -38,7 +36,7 @@ namespace WebApplication.Controllers
         }
 
         // GET: Authors/Create
-        public ActionResult Create()
+        public ActionResult CreateAuthor()
         {
             return View();
         }
@@ -47,19 +45,29 @@ namespace WebApplication.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_author,id_paper,is_coresponding")] Author author)
+        public ActionResult CreateAuthor([Bind(Include = "email, password")]User user)
         {
-            if (ModelState.IsValid)
+            Author newAuthor = new Author();
+            User x = (User)Session["User"];
+            User c = (from u in db.Users where user.email.Equals(x.email) && user.password.Equals(x.password) select u).FirstOrDefault();
+            if (c != null)
             {
-                db.Authors.Add(author);
+                newAuthor.id_user = c.id_user;
+                newAuthor.is_coresponding = true;
+
+                db.Authors.Add(newAuthor);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SubmitPaper", "Papers");
+
             }
-
-            return View(author);
+            else
+            {
+                ViewBag.Message = "You don't have an account, please create an account";
+                return RedirectToAction("NewUser", "Users");
+            }
+                
         }
-
+       
         // GET: Authors/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -80,15 +88,19 @@ namespace WebApplication.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_author,id_paper,is_coresponding")] Author author)
+        public ActionResult Edit([Bind(Include = "id_user")] Author author, String email, String password)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(author).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(author);
+            //if (ModelState.IsValid)
+            //{
+
+            //    db.Entry(author).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+
+           
+                
+               return View(author);
         }
 
         // GET: Authors/Delete/5

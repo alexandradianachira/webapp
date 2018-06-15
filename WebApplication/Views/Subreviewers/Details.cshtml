@@ -1,0 +1,58 @@
+﻿@model WebApplication.Subreviewer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subreviewer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_paper_assignment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_paper_assignment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_user)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_user)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invitation_send_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invitation_send_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invitation_ack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invitation_ack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_accepted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_accepted)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_subreviewer }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

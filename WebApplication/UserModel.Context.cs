@@ -31,7 +31,7 @@ namespace WebApplication
         public virtual DbSet<PCmember> PCmembers { get; set; }
         public virtual DbSet<Paper> Papers { get; set; }
         public virtual DbSet<Subreviewer> Subreviewers { get; set; }
-        public virtual DbSet<Subreview> Subreviews1 { get; set; }
+        public virtual DbSet<Subreview> Subreviews { get; set; }
         public virtual DbSet<PaperAssignment> PaperAssignments { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Author> Authors { get; set; }

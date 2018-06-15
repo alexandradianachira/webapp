@@ -3,11 +3,17 @@
 @{
     ViewBag.Title = "DetailsForPCmembers";
 }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<hr />
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
 
-<h2>DetailsForPCmembers</h2>
 
 <div>
-    <h4>Conference</h4>
+    <h4>Conference "@Model.conference_name"</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -44,7 +50,10 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_conference }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="container">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="@Url.Action("Index", "Conferences")">Back to list</a></li>
+
+    </ul>
+</div>

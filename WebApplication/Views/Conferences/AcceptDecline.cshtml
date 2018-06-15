@@ -3,10 +3,17 @@
     ViewBag.Title = "AcceptDecline";
 }
 
-<h2>AcceptDecline</h2>
+<h2>Accept or decline chair's invitation </h2>
 @using (Html.BeginForm())
 {
-   
-<input type="submit" id ="accept" name="Accept" value="Accept" class="btn btn-success"/>
-<input type="submit" id="decline" name="Decline" value="Decline" class="btn btn-danger" />
+
+    <div style="padding-left:30px">
+        
+
+        <input type="submit" id="accept" name="Accept" value="Accept" class="btn btn-success" />
+        <input type="submit" id="decline" name="Decline" value="Decline" class="btn btn-danger" />
+        
+    </div>
+
 }
+   

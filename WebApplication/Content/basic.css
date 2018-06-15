@@ -1,5 +1,26 @@
 ﻿body {
-    background-image:url('img/image.png');
-    background-repeat:no-repeat;
-    background-attachment:fixed;
+   background-color:#212121;
+}
+
+.container
+{
+    width:100%;
+}
+
+.img{
+    position: relative;
+    float: left;
+    width:  100px;
+    height: 100px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
+.hidetext {
+    -webkit-text-security: disc;
+}
+
+dd{
+
+    width:100%;
 }

@@ -11,7 +11,7 @@
     <EntitySet Name="PCmembers" EntityType="UserModel.Store.PCmembers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Papers" EntityType="UserModel.Store.Papers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Subreviewers" EntityType="UserModel.Store.Subreviewers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Subreviews1" EntityType="UserModel.Store.Subreviews1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Subreviews" EntityType="UserModel.Store.Subreviews" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PaperAssignments" EntityType="UserModel.Store.PaperAssignments" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Reviews" EntityType="UserModel.Store.Reviews" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Authors" EntityType="UserModel.Store.Authors" store:Type="Tables" Schema="dbo" />
@@ -32,7 +32,7 @@
       <End Role="Subreviewer" EntitySet="Subreviewers" />
     </AssociationSet>
     <AssociationSet Name="SubreviewSubreviewer" Association="UserModel.Store.SubreviewSubreviewer">
-      <End Role="Subreview" EntitySet="Subreviews1" />
+      <End Role="Subreview" EntitySet="Subreviews" />
       <End Role="Subreviewer" EntitySet="Subreviewers" />
     </AssociationSet>
     <AssociationSet Name="PaperAssignmentPCmember" Association="UserModel.Store.PaperAssignmentPCmember">
@@ -50,10 +50,6 @@
     <AssociationSet Name="PaperAssignmentReview" Association="UserModel.Store.PaperAssignmentReview">
       <End Role="PaperAssignment" EntitySet="PaperAssignments" />
       <End Role="Review" EntitySet="Reviews" />
-    </AssociationSet>
-    <AssociationSet Name="UserAuthor" Association="UserModel.Store.UserAuthor">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Author" EntitySet="Authors" />
     </AssociationSet>
     <AssociationSet Name="AuthorPaper" Association="UserModel.Store.AuthorPaper">
       <End Role="Author" EntitySet="Authors" />
@@ -74,7 +70,6 @@
     <Property Name="date_verification_send" Type="datetime" Nullable="false" />
     <Property Name="date_active" Type="datetime" Nullable="false" />
     <Property Name="verification_key" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Authors_id_author" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Conferences">
     <Key>
@@ -115,7 +110,7 @@
     <Property Name="decision_text" Type="nvarchar(max)" Nullable="false" />
     <Property Name="decision_date" Type="time" Nullable="false" />
     <Property Name="email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="contributions" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Author_id_author" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Subreviewers">
@@ -131,13 +126,13 @@
     <Property Name="User_id_user" Type="int" Nullable="false" />
     <Property Name="PaperAssignment_id_paper_assignment" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Subreviews1">
+  <EntityType Name="Subreviews">
     <Key>
       <PropertyRef Name="id_subreview" />
     </Key>
     <Property Name="id_subreview" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_subreviewer" Type="int" Nullable="false" />
-    <Property Name="grade" Type="int" Nullable="false" />
+    <Property Name="grade" Type="float" Nullable="false" />
     <Property Name="confidence" Type="int" Nullable="false" />
     <Property Name="comments" Type="nvarchar(max)" Nullable="false" />
     <Property Name="comment_to_edit" Type="nvarchar(max)" Nullable="false" />
@@ -163,7 +158,7 @@
     </Key>
     <Property Name="id_review" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_paper_assignment" Type="int" Nullable="false" />
-    <Property Name="grade" Type="int" Nullable="false" />
+    <Property Name="grade" Type="float" Nullable="false" />
     <Property Name="confidence" Type="int" Nullable="false" />
     <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
     <Property Name="comment_to_edit" Type="nvarchar(max)" Nullable="false" />
@@ -178,7 +173,7 @@
     <Property Name="id_author" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_paper" Type="int" Nullable="false" />
     <Property Name="is_coresponding" Type="bit" Nullable="false" />
-    <Property Name="id_user" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="id_user" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="ConferenceChair">
     <End Role="User" Type="UserModel.Store.Users" Multiplicity="1" />
@@ -229,7 +224,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="SubreviewSubreviewer">
-    <End Role="Subreview" Type="UserModel.Store.Subreviews1" Multiplicity="*" />
+    <End Role="Subreview" Type="UserModel.Store.Subreviews" Multiplicity="*" />
     <End Role="Subreviewer" Type="UserModel.Store.Subreviewers" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Subreviewer">
@@ -288,18 +283,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="UserAuthor">
-    <End Role="User" Type="UserModel.Store.Users" Multiplicity="*" />
-    <End Role="Author" Type="UserModel.Store.Authors" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Author">
-        <PropertyRef Name="id_author" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="Authors_id_author" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="AuthorPaper">
     <End Role="Author" Type="UserModel.Store.Authors" Multiplicity="1" />
     <End Role="Paper" Type="UserModel.Store.Papers" Multiplicity="*" />
@@ -338,9 +321,9 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Subreviewer" EntitySet="Subreviewers" />
           </AssociationSet>
-          <EntitySet Name="Subreviews1" EntityType="UserModel.Subreview" />
+          <EntitySet Name="Subreviews" EntityType="UserModel.Subreview" />
           <AssociationSet Name="SubreviewSubreviewer" Association="UserModel.SubreviewSubreviewer">
-            <End Role="Subreview" EntitySet="Subreviews1" />
+            <End Role="Subreview" EntitySet="Subreviews" />
             <End Role="Subreviewer" EntitySet="Subreviewers" />
           </AssociationSet>
           <EntitySet Name="PaperAssignments" EntityType="UserModel.PaperAssignment" />
@@ -362,10 +345,6 @@
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
           <EntitySet Name="Authors" EntityType="UserModel.Author" />
-          <AssociationSet Name="UserAuthor" Association="UserModel.UserAuthor">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Author" EntitySet="Authors" />
-          </AssociationSet>
           <AssociationSet Name="AuthorPaper" Association="UserModel.AuthorPaper">
             <End Role="Author" EntitySet="Authors" />
             <End Role="Paper" EntitySet="Papers" />
@@ -387,7 +366,6 @@
           <Property Name="verification_key" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="PCmembers" Relationship="UserModel.PCmembersUser" FromRole="User" ToRole="PCmembers" />
           <NavigationProperty Name="Subreviewers" Relationship="UserModel.UserSubreviewer" FromRole="User" ToRole="Subreviewer" />
-          <NavigationProperty Name="Authors" Relationship="UserModel.UserAuthor" FromRole="User" ToRole="Author" />
         </EntityType>
         <EntityType Name="Conference">
           <Key>
@@ -438,7 +416,7 @@
           <Property Name="decision_text" Type="String" Nullable="false" />
           <Property Name="decision_date" Type="Time" Nullable="false" />
           <Property Name="email" Type="String" Nullable="false" />
-          <Property Name="author" Type="String" Nullable="false" />
+          <Property Name="contributions" Type="String" Nullable="false" />
           <NavigationProperty Name="PaperAssignments" Relationship="UserModel.PaperPaperAssignment" FromRole="Paper" ToRole="PaperAssignment" />
           <NavigationProperty Name="Author" Relationship="UserModel.AuthorPaper" FromRole="Paper" ToRole="Author" />
         </EntityType>
@@ -470,7 +448,7 @@
           </Key>
           <Property Name="id_subreview" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_subreviewer" Type="Int32" Nullable="false" />
-          <Property Name="grade" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Double" Nullable="false" />
           <Property Name="confidence" Type="Int32" Nullable="false" />
           <Property Name="comments" Type="String" Nullable="false" />
           <Property Name="comment_to_edit" Type="String" Nullable="false" />
@@ -514,7 +492,7 @@
           </Key>
           <Property Name="id_review" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_paper_assignment" Type="Int32" Nullable="false" />
-          <Property Name="grade" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Double" Nullable="false" />
           <Property Name="confidence" Type="Int32" Nullable="false" />
           <Property Name="comment" Type="String" Nullable="false" />
           <Property Name="comment_to_edit" Type="String" Nullable="false" />
@@ -533,14 +511,9 @@
           <Property Name="id_author" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_paper" Type="Int32" Nullable="false" />
           <Property Name="is_coresponding" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="UserModel.UserAuthor" FromRole="Author" ToRole="User" />
           <NavigationProperty Name="Papers" Relationship="UserModel.AuthorPaper" FromRole="Author" ToRole="Paper" />
-          <Property Name="id_user" Type="String" Nullable="false" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="UserAuthor">
-          <End Type="UserModel.User" Role="User" Multiplicity="1" />
-          <End Type="UserModel.Author" Role="Author" Multiplicity="1" />
-        </Association>
         <Association Name="AuthorPaper">
           <End Type="UserModel.Author" Role="Author" Multiplicity="1" />
           <End Type="UserModel.Paper" Role="Paper" Multiplicity="*" />
@@ -604,7 +577,7 @@
           <ScalarProperty Name="decision_text" ColumnName="decision_text" />
           <ScalarProperty Name="decision_date" ColumnName="decision_date" />
           <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="author" ColumnName="author" />
+          <ScalarProperty Name="contributions" ColumnName="contributions" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -620,9 +593,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Subreviews1">
+    <EntitySetMapping Name="Subreviews">
       <EntityTypeMapping TypeName="IsTypeOf(UserModel.Subreview)">
-        <MappingFragment StoreEntitySet="Subreviews1">
+        <MappingFragment StoreEntitySet="Subreviews">
           <ScalarProperty Name="id_subreview" ColumnName="id_subreview" />
           <ScalarProperty Name="id_subreviewer" ColumnName="id_subreviewer" />
           <ScalarProperty Name="grade" ColumnName="grade" />
@@ -701,7 +674,7 @@
         <ScalarProperty Name="id_subreviewer" ColumnName="id_subreviewer" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="SubreviewSubreviewer" TypeName="UserModel.SubreviewSubreviewer" StoreEntitySet="Subreviews1">
+    <AssociationSetMapping Name="SubreviewSubreviewer" TypeName="UserModel.SubreviewSubreviewer" StoreEntitySet="Subreviews">
       <EndProperty Name="Subreviewer">
         <ScalarProperty Name="id_subreviewer" ColumnName="Subreviewer_id_subreviewer" />
       </EndProperty>
@@ -739,14 +712,6 @@
       </EndProperty>
       <EndProperty Name="Review">
         <ScalarProperty Name="id_review" ColumnName="id_review" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="UserAuthor" TypeName="UserModel.UserAuthor" StoreEntitySet="Users">
-      <EndProperty Name="Author">
-        <ScalarProperty Name="id_author" ColumnName="Authors_id_author" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="id_user" ColumnName="id_user" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="AuthorPaper" TypeName="UserModel.AuthorPaper" StoreEntitySet="Papers">

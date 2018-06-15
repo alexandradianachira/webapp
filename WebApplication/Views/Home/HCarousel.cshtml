@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/basic.css">
+    .carousel-content {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    z-index: 20;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container" >
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img class="img" src="~/img/image.png" alt="" style="width:inherit">
+                    <div class="carousel-content">
+                        @*<p>TEST</p>*@
+                    </div>
+                    <div class="carousel-caption">
+                        <h1>What we do</h1>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img class="img" src="~/img/main_4.jpg" alt="" style="width:inherit">
+                </div>
+
+                <div class="item">
+                    <img class="img" src="~/img/image.png" alt="" style="width:inherit" ;>
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <div></div>
+    <div class="container body-content">
+
+
+        <div class="row">
+            <div class="col-md-4" style="color:#ffffff">
+                <h2>Getting started</h2>
+                <div>
+                    <p>
+                        @*<ul>*@
+
+                        @*<li>*@
+                        @if (Session["User"] == null)
+                        {
+                            <a class="btn btn-default" href="@Url.Action("Create","Users")">Create an account »</a><br />
+                            <a class="btn btn-default" href="@Url.Action("Login","Users")">Login »</a>
+
+
+                        }
+                        else
+                        {
+                            <a class="btn btn-default" href="@Url.Action("Welcoming","Users")">See what you can do »</a>
+
+                        }
+                    @*</li>
+
+                    <li>*@
+                    @*</li>
+                  
+
+                    </ul>*@
+
+
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="col-md-4" style="color:#ffffff">
+
+
+                <h2>My conferences</h2>
+                @if (Session["User"] == null)
+                {
+                    <p> Please login first </p>
+                }
+                else
+                {
+                    <p><a class="btn btn-default" href="@Url.Action("Index","Conferences")">See my conferences »</a></p>
+
+                    @*@Html.ActionLink("See my conferences", "Index", "Conferences")*@
+
+                }
+
+
+
+            </div>
+            <div class="col-md-4" style="color:#ffffff">
+                <h2>What?</h2>
+
+                <p>
+                    We are helping you by reviewing your work by one or more people who are capable and professionally similar to check and forward the publication of this paper in the proceedings of a conference or in a scientific journal.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+            <hr />
+
+</body>
+</html>

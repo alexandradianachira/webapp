@@ -1,0 +1,58 @@
+﻿@model WebApplication.PaperAssignment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PaperAssignment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_paper)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_paper)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_pcmember)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_pcmember)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_assigned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_assigned)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.date_due)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_due)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.is_delegated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.is_delegated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_paper_assignment }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

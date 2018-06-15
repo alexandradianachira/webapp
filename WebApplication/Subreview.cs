@@ -16,7 +16,7 @@ namespace WebApplication
     {
         public int id_subreview { get; set; }
         public int id_subreviewer { get; set; }
-        public int grade { get; set; }
+        public double grade { get; set; }
         public int confidence { get; set; }
         public string comments { get; set; }
         public string comment_to_edit { get; set; }

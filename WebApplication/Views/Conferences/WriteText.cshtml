@@ -2,8 +2,11 @@
 @{
     ViewBag.Title = "WriteText";
 }
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
 
 <h2>WriteText</h2>
+<hr />
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -14,10 +17,10 @@
     </dt>
     <dd>
 
-        @Html.TextArea("Text", null, new { @class = "form-control" })
+        @Html.TextArea("Send a message", null, new { @class = "form-control" })
 
     </dd>
    
 </dl>
-<input type="submit" value="Send" class="btn btn-default" > 
+<input type="submit" value="Send" class="btn btn-default" id="btn" > 
 }

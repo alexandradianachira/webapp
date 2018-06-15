@@ -215,7 +215,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
-    <Compile Include="Controllers\NewUserController.cs" />
+    <Compile Include="Controllers\PaperAssignmentsController.cs" />
+    <Compile Include="Controllers\PCmembersController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\SubreviewersController.cs" />
+    <Compile Include="Controllers\SubreviewsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PapersController.cs" />
     <Compile Include="Forms\newUser.aspx.cs">
@@ -237,7 +242,6 @@
     </Compile>
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Class.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Paper.cs">
@@ -280,30 +284,26 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\animate.min.css" />
-    <Content Include="Content\anotherStyle.css" />
     <Content Include="Content\basic-style.css" />
     <Content Include="Content\basic.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.minr.css" />
-    <Content Include="Content\change_color.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\idangerous.swiper.css" />
-    <Content Include="Content\js_composer.min.css" />
-    <Content Include="Content\owl.min.css" />
-    <Content Include="Content\prettyPhoto.min.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\styles.css" />
     <Content Include="Forms\newUser.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Forms\login.aspx" />
+    <Content Include="img\arrow_left_3.png" />
+    <Content Include="img\arrow_right_3.png" />
     <Content Include="img\drag.png" />
+    <Content Include="img\image.png" />
+    <Content Include="img\main_4.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\anchors.navigation.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -311,20 +311,34 @@
     </Content>
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\countTo.js" />
     <Content Include="Scripts\global.js" />
     <Content Include="Scripts\idangerous.swiper.min.js" />
     <Content Include="Scripts\imagelightbox.min.js" />
     <Content Include="Scripts\imagesloaded.pkgd.min.js" />
     <Content Include="Scripts\isotope.pkgd.min.js" />
     <Content Include="Scripts\jquery-migrate.min.js" />
+    <Content Include="Scripts\jquery.classycountdown.min.js" />
     <Content Include="Scripts\jquery.form.min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.knob.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.prettyPhoto.min.js" />
     <Content Include="Scripts\jquery.throttle.js" />
+    <Content Include="Scripts\js_composer.min.css" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\navigation.js" />
     <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\plugins.js" />
+    <Content Include="Scripts\rev-slider.js" />
     <Content Include="Scripts\scripts.js" />
+    <Content Include="Scripts\shortcodes.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\validate.js" />
+    <Content Include="Scripts\vc-accordion.min.js" />
+    <Content Include="Scripts\vc-tabs.min.js" />
+    <Content Include="Scripts\vc-tta-autoplay.min.js" />
+    <Content Include="Scripts\vc_grid.min.js" />
     <Content Include="Scripts\vc_grid.min.js.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -339,6 +353,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\script-custom-validator.js" />
     <Content Include="Scripts\waypoints.min.js" />
+    <Content Include="Scripts\wp-embed.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="UserModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -351,6 +366,7 @@
       <LastGenOutput>UserModel.cs</LastGenOutput>
       <DependentUpon>UserModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Home\testPage.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -392,20 +408,16 @@
     <Content Include="UserModel.edmx.diagram">
       <DependentUpon>UserModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\NewUser\Create.cshtml" />
-    <Content Include="Views\NewUser\SendEmail.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\NewUser\ErrorVerificationKey.cshtml" />
-    <Content Include="Views\NewUser\SetNewPassword.cshtml" />
+    <Content Include="Views\Users\SendEmail.cshtml" />
+    <Content Include="Views\Users\ErrorVerificationKey.cshtml" />
+    <Content Include="Views\Users\SetNewPassword.cshtml" />
     <Content Include="Views\Home\Model.cshtml" />
-    <Content Include="Views\Login\Welcoming.cshtml" />
     <Content Include="Views\Conferences\Create.cshtml" />
     <Content Include="Views\Conferences\Delete.cshtml" />
     <Content Include="Views\Conferences\Details.cshtml" />
     <Content Include="Views\Conferences\Edit.cshtml" />
-    <Content Include="Views\Conferences\Index.cshtml" />
+    <Content Include="Views\Conferences\ConferenceChair.cshtml" />
     <Content Include="Views\Chair\SendInvites.cshtml" />
-    <Content Include="Views\Logout\Index.cshtml" />
     <Content Include="Views\Chair\RSVP.cshtml" />
     <Content Include="Views\Conferences\ListUsers.cshtml" />
     <Content Include="Views\Conferences\DetailsForPCmembers.cshtml" />
@@ -423,6 +435,47 @@
     <Content Include="Views\Authors\Edit.cshtml" />
     <Content Include="Views\Authors\Index.cshtml" />
     <Content Include="Views\Home\ex.cshtml" />
+    <Content Include="Views\Conferences\Index.cshtml" />
+    <Content Include="Views\Home\another.cshtml" />
+    <Content Include="Views\Home\HCarousel.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Detail.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Users\Logout.cshtml" />
+    <Content Include="Views\Users\Welcoming.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Subreviews\Create.cshtml" />
+    <Content Include="Views\Subreviews\Delete.cshtml" />
+    <Content Include="Views\Subreviews\Details.cshtml" />
+    <Content Include="Views\Subreviews\Edit.cshtml" />
+    <Content Include="Views\Subreviews\Index.cshtml" />
+    <Content Include="Views\PaperAssignments\Create.cshtml" />
+    <Content Include="Views\PaperAssignments\Delete.cshtml" />
+    <Content Include="Views\PaperAssignments\Details.cshtml" />
+    <Content Include="Views\PaperAssignments\Edit.cshtml" />
+    <Content Include="Views\PaperAssignments\Index.cshtml" />
+    <Content Include="Views\Subreviewers\Create.cshtml" />
+    <Content Include="Views\Subreviewers\Delete.cshtml" />
+    <Content Include="Views\Subreviewers\Details.cshtml" />
+    <Content Include="Views\Subreviewers\Edit.cshtml" />
+    <Content Include="Views\Subreviewers\Index.cshtml" />
+    <Content Include="Views\PCmembers\Create.cshtml" />
+    <Content Include="Views\PCmembers\Delete.cshtml" />
+    <Content Include="Views\PCmembers\Details.cshtml" />
+    <Content Include="Views\PCmembers\Edit.cshtml" />
+    <Content Include="Views\PCmembers\Index.cshtml" />
+    <Content Include="Views\Conferences\ConferencePCmember.cshtml" />
+    <Content Include="Views\Conferences\Reconsideration.cshtml" />
+    <Content Include="Views\Authors\CreateAuthor.cshtml" />
+    <Content Include="Views\Papers\SubmitPaper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
