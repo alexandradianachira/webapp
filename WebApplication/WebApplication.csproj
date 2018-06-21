@@ -219,7 +219,6 @@
     <Compile Include="Controllers\PCmembersController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\SubreviewersController.cs" />
-    <Compile Include="Controllers\SubreviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PapersController.cs" />
@@ -366,7 +365,6 @@
       <LastGenOutput>UserModel.cs</LastGenOutput>
       <DependentUpon>UserModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\Home\testPage.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -411,30 +409,24 @@
     <Content Include="Views\Users\SendEmail.cshtml" />
     <Content Include="Views\Users\ErrorVerificationKey.cshtml" />
     <Content Include="Views\Users\SetNewPassword.cshtml" />
-    <Content Include="Views\Home\Model.cshtml" />
     <Content Include="Views\Conferences\Create.cshtml" />
     <Content Include="Views\Conferences\Delete.cshtml" />
     <Content Include="Views\Conferences\Details.cshtml" />
     <Content Include="Views\Conferences\Edit.cshtml" />
     <Content Include="Views\Conferences\ConferenceChair.cshtml" />
-    <Content Include="Views\Chair\SendInvites.cshtml" />
-    <Content Include="Views\Chair\RSVP.cshtml" />
     <Content Include="Views\Conferences\ListUsers.cshtml" />
     <Content Include="Views\Conferences\DetailsForPCmembers.cshtml" />
     <Content Include="Views\Conferences\AcceptDecline.cshtml" />
     <Content Include="Views\Conferences\SendInvite.cshtml" />
     <Content Include="Views\Conferences\WriteText.cshtml" />
-    <Content Include="Views\Papers\Create.cshtml" />
     <Content Include="Views\Papers\Delete.cshtml" />
     <Content Include="Views\Papers\Details.cshtml" />
     <Content Include="Views\Papers\Edit.cshtml" />
-    <Content Include="Views\Papers\Index.cshtml" />
     <Content Include="Views\Authors\Create.cshtml" />
     <Content Include="Views\Authors\Delete.cshtml" />
     <Content Include="Views\Authors\Details.cshtml" />
     <Content Include="Views\Authors\Edit.cshtml" />
     <Content Include="Views\Authors\Index.cshtml" />
-    <Content Include="Views\Home\ex.cshtml" />
     <Content Include="Views\Conferences\Index.cshtml" />
     <Content Include="Views\Home\another.cshtml" />
     <Content Include="Views\Home\HCarousel.cshtml" />
@@ -476,9 +468,16 @@
     <Content Include="Views\Conferences\Reconsideration.cshtml" />
     <Content Include="Views\Authors\CreateAuthor.cshtml" />
     <Content Include="Views\Papers\SubmitPaper.cshtml" />
+    <Content Include="Views\Conferences\AllConferences.cshtml" />
+    <Content Include="Views\Papers\Index.cshtml" />
+    <Content Include="Views\PCmembers\Reconsideration.cshtml" />
+    <Content Include="Views\PCmembers\AcceptDecline.cshtml" />
+    <Content Include="Views\Authors\Error.cshtml" />
+    <Content Include="Views\Papers\AllPapers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PaperFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

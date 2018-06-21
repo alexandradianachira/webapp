@@ -17,8 +17,8 @@ namespace WebApplication
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PaperAssignment()
         {
-            this.Subreviewers = new HashSet<Subreviewer>();
             this.Reviews = new HashSet<Review>();
+            this.Subreviewers = new HashSet<Subreviewer>();
         }
     
         public int id_paper_assignment { get; set; }
@@ -29,10 +29,10 @@ namespace WebApplication
         public bool is_delegated { get; set; }
     
         public virtual PCmember PCmember { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subreviewer> Subreviewers { get; set; }
         public virtual Paper Paper { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Subreviewer> Subreviewers { get; set; }
     }
 }

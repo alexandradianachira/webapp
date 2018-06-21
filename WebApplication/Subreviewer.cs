@@ -23,13 +23,13 @@ namespace WebApplication
         public int id_subreviewer { get; set; }
         public int id_paper_assignment { get; set; }
         public int id_user { get; set; }
-        public System.DateTime invitation_send_date { get; set; }
-        public string invitation_ack { get; set; }
+        public System.DateTime date_invitation_send { get; set; }
+        public System.DateTime date_invitation_answer { get; set; }
         public bool is_accepted { get; set; }
     
         public virtual User User { get; set; }
+        public virtual PaperAssignment PaperAssignment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subreview> Subreviews { get; set; }
-        public virtual PaperAssignment PaperAssignment { get; set; }
     }
 }

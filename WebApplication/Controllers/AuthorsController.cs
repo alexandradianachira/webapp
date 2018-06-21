@@ -47,21 +47,23 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult CreateAuthor([Bind(Include = "email, password")]User user)
         {
+
             Author newAuthor = new Author();
             User x = (User)Session["User"];
             User c = (from u in db.Users where user.email.Equals(x.email) && user.password.Equals(x.password) select u).FirstOrDefault();
             if (c != null)
             {
-                newAuthor.id_user = c.id_user;
-                newAuthor.is_coresponding = true;
-
+                newAuthor.id_user = x.id_user;
+                // newAuthor.is_coresponding = true;
+                newAuthor.is_coresponding = false;
                 db.Authors.Add(newAuthor);
                 db.SaveChanges();
-                return RedirectToAction("SubmitPaper", "Papers");
+                return RedirectToAction("AllConferences", "Conferences");
 
             }
             else
             {
+                //System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=""JavaScript"">alert("Y")</SCRIPT>");
                 ViewBag.Message = "You don't have an account, please create an account";
                 return RedirectToAction("NewUser", "Users");
             }

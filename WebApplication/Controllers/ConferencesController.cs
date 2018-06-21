@@ -116,17 +116,13 @@ namespace WebApplication.Controllers
       
 
         [HttpPost]
-        public ActionResult WriteText([Bind(Include = "text")] User user)
+        public ActionResult WriteText(String text)
         {
             //List<User> usersAlreadyInvited = new List<User>();
             var getUser = (User) Session["getUser"];
             DateTime date_invitation_sent = DateTime.Now;
-            mailSender(date_invitation_sent,getUser.id_user, getUser.email,getUser.first_name,user.text,getUser.verification_key);
-            //usersAlreadyInvited.Add(getUser);
-            //se adauga intr-o lista userii care deja au fost invitati 
-            //usersAlreadyInvited.Add(user);
-           
-                //Session["date_invitation_sent"]=DateTime.Now;
+            mailSender(date_invitation_sent,getUser.id_user, getUser.email,getUser.first_name,text,getUser.verification_key);
+            Session["date_invitation_sent"] = DateTime.Now.ToString();
             return RedirectToAction("SendInvite", "Conferences");
         }
 
@@ -143,7 +139,7 @@ namespace WebApplication.Controllers
             const string fromPassword = "piqejhrgxidzojsf";
             const string subject = "Invitation for review";
             // var body = "Verification Key - Enter into link below " + verification_key;
-            var body = string.Format("Dear, {0} <BR/>  <BR/> Thank you for your registration. <BR/><b> Message:</b> {2} <BR/> please click on the below link to accept the chair's invitation : <a href =\"{1}\" title =\"Accept or decline\">{1}</a>", first_name, Url.Action("AcceptDecline", "Conferences" ,new { verification_key, id_conference, id_user }, Request.Url.Scheme), text);
+            var body = string.Format("Dear, {0} <BR/>  <BR/> Thank you for your registration. <BR/><b> Message:</b> {2} <BR/> </br> First please login here <a href =\"{3}\" title =\"Accept or decline\">{3}</a> and then click on the below link to accept the chair's invitation : <a href =\"{1}\" title =\"Accept or decline\">{1}</a>", first_name, Url.Action("AcceptDecline", "PCmembers" ,new { verification_key, id_conference, id_user }, Request.Url.Scheme), text, Url.Action("Login", "Users", new { },  Request.Url.Scheme));
 
             //  var body = GetFormattedMessageHTML(email, first_name,verification_key);
 
@@ -184,61 +180,75 @@ namespace WebApplication.Controllers
            
             return View(conference);
         }
+        //public ActionResult Verify()
+        //{
+        //    User user = (User)Session["User"];
+        //    if (user != null)
+        //        return RedirectToAction("AcceptDecline");
+        //    else
+        //    {
+        //        ViewBag.Message = "You need to sign in";
+        //        return RedirectToAction("Index");
+
+        //    }
+          
+
+        //}
+
+        //public ActionResult AcceptDecline()
+        //{
+
+          
+        //    return View();
+
+        //}
+
+        //[HttpPost]
+        //public ActionResult AcceptDecline([Bind(Include="verification_key")]User user,int id_user, int id_conference, String submit )
+        //{
+
+        //    // var confActuala =(Conference) Session["Conference"];
+        //    //  confActuala = db.Conferences.Find(confActuala.id_conference);
+
+        //    var conference = db.Conferences.Find(id_conference);
+        //    var userFound = db.Users.Find(id_user);
+        //    Session["date_invitatio_acc"] = DateTime.Now;
 
 
-        public ActionResult AcceptDecline()
-        {
-            return View();
-        }
+        //    if (Request.Form["Accept"] != null)
+        //    {
+        //        PCmember newPcMember = new PCmember();
+        //        newPcMember.User= db.Users.Find(id_user);
+        //        //id-ul conferintei pe care sunt
+        //        newPcMember.Conference= db.Conferences.Find(id_conference);
+        //        String confName = newPcMember.Conference.conference_name;
+        //        newPcMember.id_user = newPcMember.User.id_user;
+        //        newPcMember.id_conference = newPcMember.Conference.id_conference;
+        //        newPcMember.is_chair = false;
+        //        //newPcMember.User = userFound;
+        //        newPcMember.is_valid = false;
+        //        newPcMember.date_invitation_acc = (DateTime)Session["date_invitation_acc"];
+        //        var invitation_sent = Session["date_invitation_sent"];
 
-        [HttpPost]
-        public ActionResult AcceptDecline([Bind(Include="verification_key")]User user,int id_user, int id_conference, String submit )
-        {
+        //        newPcMember.date_invitation_sent = DateTime.Now;
+        //        //newPcMember.dateinvitationacc = (DateTime)invitation_acc;
+        //       // newPcMember.Conference = conference;
+        //        db.PCmembers.Add(newPcMember);
+        //        db.SaveChanges();
 
-            // var confActuala =(Conference) Session["Conference"];
-            //  confActuala = db.Conferences.Find(confActuala.id_conference);
-
-            var conference = db.Conferences.Find(id_conference);
-            var userFound = db.Users.Find(id_user);
-            
-
-            if (Request.Form["Accept"] != null)
-            {
-                PCmember newPcMember = new PCmember();
-                 newPcMember.User= db.Users.Find(id_user);
-                //id-ul conferintei pe care sunt
-                newPcMember.Conference= db.Conferences.Find(id_conference);
-                String confName = newPcMember.Conference.conference_name;
-                newPcMember.id_user = newPcMember.User.id_user;
-                newPcMember.id_conference = newPcMember.Conference.id_conference;
-                newPcMember.is_chair = false;
-                //newPcMember.User = userFound;
-                newPcMember.is_valid = false;
-                newPcMember.date_invitation_acc = DateTime.Now;
-                var invitation_sent = Session["date_invitation_sent"];
-
-                newPcMember.date_invitation_sent = DateTime.Now;
-                //newPcMember.dateinvitationacc = (DateTime)invitation_acc;
-               // newPcMember.Conference = conference;
-                db.PCmembers.Add(newPcMember);
-                db.SaveChanges();
-
-            }
-            else if (Request.Form["Decline"] != null)
-            {
-                return RedirectToAction("Reconsideration", "Conferences");
+        //    }
+        //    else if (Request.Form["Decline"] != null)
+        //    {
+        //        return RedirectToAction("Reconsideration", "Conferences");
                 
-            }
+        //    }
 
-        
-           
-        
-            return RedirectToAction("Index", "Home");
-        }
-        public ActionResult Reconsideration()
-        {
-            return View();
-        }
+        //    return RedirectToAction("HCarousel", "Home");
+        //}
+        //public ActionResult Reconsideration()
+        //{
+        //    return View();
+        //}
       
         
         // GET: Conferences1/Create
@@ -301,6 +311,13 @@ namespace WebApplication.Controllers
             }
             return View(conference);
         }
+
+   
+        public ActionResult AllConferences()
+        {
+            return View(db.Conferences.ToList());
+        }
+
 
         // GET: Conferences1/Delete/5
         public ActionResult Delete(int? id)

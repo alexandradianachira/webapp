@@ -29,10 +29,7 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Login(String password, String email)
         {
-            //var users = db.Users.ToList();
-
-            //Session["users"] = users;
-
+      
             if (ModelState.IsValid)
             {
                 User user = (from u in db.Users
@@ -43,18 +40,18 @@ namespace WebApplication.Controllers
                 if (user != null)
                 {
                     Session["User"] = user;
-                    if (Session["User"] != null)
-                    {
+                    //
+                   // if (Session["User"] != null)
+                
                         return RedirectToAction("Welcoming", "Users");
-                    }
+                   
                     // se pune userul user pe session 
                     // cand pe session avem un user, inseamna ca exista user logat
-                    else
-                    ViewBag.Message = "You don't have an account";
+                    //else
+                  
                 }
                 else
-                    ViewBag.Message = "Your password or e-mail is incorect, try again";
-
+                    ViewBag.Message = "Your password or e-mail is incorrect, try again";
 
             }
 
@@ -63,8 +60,11 @@ namespace WebApplication.Controllers
 
         public ActionResult Logout()
         {
-            var a = Session["User"];
+            //var a = Session["User"];
             Session["User"] = null;
+            Session.Remove("User");
+            var a = Session["User"];
+            //Session.Clear();
             return RedirectToAction("HCarousel", "Home");
         }
 

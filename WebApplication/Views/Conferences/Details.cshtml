@@ -3,7 +3,14 @@
 @{
     ViewBag.Title = "Details";
 }
-
+<link rel="stylesheet" href="~/Content/basic.css" type="text/css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<hr />
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
 <h2>Details</h2>
 
 <div>
@@ -45,21 +52,38 @@
     
     </dl>
     <br />
+    <table class="table">
+        <tr>
+           <th>Surname</th> 
+            <th>First name</th>
+            <th>Email</th>
+            <th>Invite</th>
 
-    @foreach(var item in ViewBag.Users)
-    {
-      <a>@item.surname   </a> 
-      <a>@item.first_name </a>  
-      <a>@item.email </a>
-       
-        @:&nbsp
-        <a> @Html.ActionLink("Invite", "ListUsers", new { id = item.id_user })</a>
-      
-        @:&nbsp
-        <BR/>
-    }
+        </tr>
+        
+
+        @foreach (var item in ViewBag.Users)
+        {
+        <tr>
+            <td class="surname">@item.surname   </td>
+            <td class="first">@item.first_name </td>
+            <td class="email">@item.email </td>
+
+            <td> @Html.ActionLink("Invite", "ListUsers", new { id = item.id_user })</td>
+        </tr>
+        }
+    </table>
+  
 </div>
-<p>
+<br />
+@*<p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id_conference }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
+<hr />
+<div class="container">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a href="@Url.Action("Edit", "Conferences", new { id = Model.id_conference })">Edit</a></li>
+        <li><a href="@Url.Action("Index", "Conferences")">Back to list</a></li>
+    </ul>
+</div>

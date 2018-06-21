@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/15/2018 21:05:50
+-- Date Created: 06/21/2018 23:15:34
 -- Generated from EDMX file: D:\anul III\WebApplication\WebApplication\UserModel.edmx
 -- --------------------------------------------------
 
@@ -29,14 +29,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserSubreviewer]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Subreviewers] DROP CONSTRAINT [FK_UserSubreviewer];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SubreviewSubreviewer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Subreviews] DROP CONSTRAINT [FK_SubreviewSubreviewer];
-GO
 IF OBJECT_ID(N'[dbo].[FK_PaperAssignmentPCmember]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PaperAssignments] DROP CONSTRAINT [FK_PaperAssignmentPCmember];
-GO
-IF OBJECT_ID(N'[dbo].[FK_PaperAssignmentSubreviewer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Subreviewers] DROP CONSTRAINT [FK_PaperAssignmentSubreviewer];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PaperPaperAssignment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PaperAssignments] DROP CONSTRAINT [FK_PaperPaperAssignment];
@@ -46,6 +40,12 @@ IF OBJECT_ID(N'[dbo].[FK_PaperAssignmentReview]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_AuthorPaper]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Papers] DROP CONSTRAINT [FK_AuthorPaper];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PaperAssignmentSubreviewer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Subreviewers] DROP CONSTRAINT [FK_PaperAssignmentSubreviewer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SubreviewerSubreview]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Subreviews] DROP CONSTRAINT [FK_SubreviewerSubreview];
 GO
 
 -- --------------------------------------------------
@@ -67,9 +67,6 @@ GO
 IF OBJECT_ID(N'[dbo].[Subreviewers]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Subreviewers];
 GO
-IF OBJECT_ID(N'[dbo].[Subreviews]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Subreviews];
-GO
 IF OBJECT_ID(N'[dbo].[PaperAssignments]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PaperAssignments];
 GO
@@ -78,6 +75,9 @@ IF OBJECT_ID(N'[dbo].[Reviews]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Authors]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Authors];
+GO
+IF OBJECT_ID(N'[dbo].[Subreviews]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Subreviews];
 GO
 
 -- --------------------------------------------------
@@ -127,16 +127,17 @@ GO
 -- Creating table 'Papers'
 CREATE TABLE [dbo].[Papers] (
     [id_paper] int IDENTITY(1,1) NOT NULL,
-    [id_conference] nvarchar(max)  NOT NULL,
+    [id_conference] int  NOT NULL,
     [title] nvarchar(max)  NOT NULL,
     [pdf] nvarchar(max)  NOT NULL,
-    [date_submitted] time  NOT NULL,
+    [date_submitted] datetime  NOT NULL,
     [is_submitted] bit  NOT NULL,
-    [decision] nvarchar(max)  NOT NULL,
+    [decision] bit  NOT NULL,
     [decision_text] nvarchar(max)  NOT NULL,
-    [decision_date] time  NOT NULL,
+    [decision_date] datetime  NOT NULL,
     [email] nvarchar(max)  NOT NULL,
-    [contributions] nvarchar(max)  NOT NULL,
+    [contributions] nvarchar(max)  NULL,
+    [text] nvarchar(max)  NOT NULL,
     [Author_id_author] int  NOT NULL
 );
 GO
@@ -146,24 +147,11 @@ CREATE TABLE [dbo].[Subreviewers] (
     [id_subreviewer] int IDENTITY(1,1) NOT NULL,
     [id_paper_assignment] int  NOT NULL,
     [id_user] int  NOT NULL,
-    [invitation_send_date] datetime  NOT NULL,
-    [invitation_ack] nvarchar(max)  NOT NULL,
+    [date_invitation_send] datetime  NOT NULL,
+    [date_invitation_answer] datetime  NOT NULL,
     [is_accepted] bit  NOT NULL,
     [User_id_user] int  NOT NULL,
     [PaperAssignment_id_paper_assignment] int  NOT NULL
-);
-GO
-
--- Creating table 'Subreviews'
-CREATE TABLE [dbo].[Subreviews] (
-    [id_subreview] int IDENTITY(1,1) NOT NULL,
-    [id_subreviewer] int  NOT NULL,
-    [grade] float  NOT NULL,
-    [confidence] int  NOT NULL,
-    [comments] nvarchar(max)  NOT NULL,
-    [comment_to_edit] nvarchar(max)  NOT NULL,
-    [date_submitted] datetime  NOT NULL,
-    [Subreviewer_id_subreviewer] int  NOT NULL
 );
 GO
 
@@ -187,7 +175,7 @@ CREATE TABLE [dbo].[Reviews] (
     [grade] float  NOT NULL,
     [confidence] int  NOT NULL,
     [comment] nvarchar(max)  NOT NULL,
-    [comment_to_edit] nvarchar(max)  NOT NULL,
+    [comment_to_editor] nvarchar(max)  NOT NULL,
     [date_submitted] nvarchar(max)  NOT NULL,
     [from_subreviewer] nvarchar(max)  NOT NULL,
     [PaperAssignment_id_paper_assignment] int  NOT NULL
@@ -198,8 +186,21 @@ GO
 CREATE TABLE [dbo].[Authors] (
     [id_author] int IDENTITY(1,1) NOT NULL,
     [id_paper] int  NOT NULL,
-    [is_coresponding] bit  NOT NULL,
-    [id_user] int  NOT NULL
+    [id_user] int  NOT NULL,
+    [is_coresponding] bit  NOT NULL
+);
+GO
+
+-- Creating table 'Subreviews'
+CREATE TABLE [dbo].[Subreviews] (
+    [id_subreview] int IDENTITY(1,1) NOT NULL,
+    [id_subreviewer] int  NOT NULL,
+    [grade] float  NOT NULL,
+    [confidence] nvarchar(max)  NOT NULL,
+    [comment] nvarchar(max)  NOT NULL,
+    [comment_to_edit] nvarchar(max)  NOT NULL,
+    [date_submitted] datetime  NOT NULL,
+    [Subreviewer_id_subreviewer] int  NOT NULL
 );
 GO
 
@@ -237,12 +238,6 @@ ADD CONSTRAINT [PK_Subreviewers]
     PRIMARY KEY CLUSTERED ([id_subreviewer] ASC);
 GO
 
--- Creating primary key on [id_subreview] in table 'Subreviews'
-ALTER TABLE [dbo].[Subreviews]
-ADD CONSTRAINT [PK_Subreviews]
-    PRIMARY KEY CLUSTERED ([id_subreview] ASC);
-GO
-
 -- Creating primary key on [id_paper_assignment] in table 'PaperAssignments'
 ALTER TABLE [dbo].[PaperAssignments]
 ADD CONSTRAINT [PK_PaperAssignments]
@@ -259,6 +254,12 @@ GO
 ALTER TABLE [dbo].[Authors]
 ADD CONSTRAINT [PK_Authors]
     PRIMARY KEY CLUSTERED ([id_author] ASC);
+GO
+
+-- Creating primary key on [id_subreview] in table 'Subreviews'
+ALTER TABLE [dbo].[Subreviews]
+ADD CONSTRAINT [PK_Subreviews]
+    PRIMARY KEY CLUSTERED ([id_subreview] ASC);
 GO
 
 -- --------------------------------------------------
@@ -325,21 +326,6 @@ ON [dbo].[Subreviewers]
     ([User_id_user]);
 GO
 
--- Creating foreign key on [Subreviewer_id_subreviewer] in table 'Subreviews'
-ALTER TABLE [dbo].[Subreviews]
-ADD CONSTRAINT [FK_SubreviewSubreviewer]
-    FOREIGN KEY ([Subreviewer_id_subreviewer])
-    REFERENCES [dbo].[Subreviewers]
-        ([id_subreviewer])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SubreviewSubreviewer'
-CREATE INDEX [IX_FK_SubreviewSubreviewer]
-ON [dbo].[Subreviews]
-    ([Subreviewer_id_subreviewer]);
-GO
-
 -- Creating foreign key on [PCmember_id_pcmember] in table 'PaperAssignments'
 ALTER TABLE [dbo].[PaperAssignments]
 ADD CONSTRAINT [FK_PaperAssignmentPCmember]
@@ -353,21 +339,6 @@ GO
 CREATE INDEX [IX_FK_PaperAssignmentPCmember]
 ON [dbo].[PaperAssignments]
     ([PCmember_id_pcmember]);
-GO
-
--- Creating foreign key on [PaperAssignment_id_paper_assignment] in table 'Subreviewers'
-ALTER TABLE [dbo].[Subreviewers]
-ADD CONSTRAINT [FK_PaperAssignmentSubreviewer]
-    FOREIGN KEY ([PaperAssignment_id_paper_assignment])
-    REFERENCES [dbo].[PaperAssignments]
-        ([id_paper_assignment])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PaperAssignmentSubreviewer'
-CREATE INDEX [IX_FK_PaperAssignmentSubreviewer]
-ON [dbo].[Subreviewers]
-    ([PaperAssignment_id_paper_assignment]);
 GO
 
 -- Creating foreign key on [Paper_id_paper] in table 'PaperAssignments'
@@ -413,6 +384,36 @@ GO
 CREATE INDEX [IX_FK_AuthorPaper]
 ON [dbo].[Papers]
     ([Author_id_author]);
+GO
+
+-- Creating foreign key on [PaperAssignment_id_paper_assignment] in table 'Subreviewers'
+ALTER TABLE [dbo].[Subreviewers]
+ADD CONSTRAINT [FK_PaperAssignmentSubreviewer]
+    FOREIGN KEY ([PaperAssignment_id_paper_assignment])
+    REFERENCES [dbo].[PaperAssignments]
+        ([id_paper_assignment])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PaperAssignmentSubreviewer'
+CREATE INDEX [IX_FK_PaperAssignmentSubreviewer]
+ON [dbo].[Subreviewers]
+    ([PaperAssignment_id_paper_assignment]);
+GO
+
+-- Creating foreign key on [Subreviewer_id_subreviewer] in table 'Subreviews'
+ALTER TABLE [dbo].[Subreviews]
+ADD CONSTRAINT [FK_SubreviewerSubreview]
+    FOREIGN KEY ([Subreviewer_id_subreviewer])
+    REFERENCES [dbo].[Subreviewers]
+        ([id_subreviewer])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SubreviewerSubreview'
+CREATE INDEX [IX_FK_SubreviewerSubreview]
+ON [dbo].[Subreviews]
+    ([Subreviewer_id_subreviewer]);
 GO
 
 -- --------------------------------------------------

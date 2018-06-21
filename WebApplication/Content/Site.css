@@ -56,6 +56,28 @@ table{
     color:white;
 }
 
-#btn{
+/*#btn{
     padding-left:30px;
+}*/
+
+.users
+{
+    border:dotted;
+}
+
+.invite{
+    padding-left:10px;
+}
+
+.surname{
+    padding-left:inherit;
+
+}
+.first{
+    padding-left:inherit;
+
+}
+.email{
+    padding-left:inherit;
+
 }

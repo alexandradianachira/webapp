@@ -17,10 +17,11 @@
     </dt>
     <dd>
 
-        @Html.TextArea("Send a message", null, new { @class = "form-control" })
+        @*@Html.TextArea("Send a message", null, new { @class = "form-control" })*@
+        @Html.EditorFor(model => model.text, new { htmlAttributes = new { @class = "form-control", required = "required" } })
 
     </dd>
    
 </dl>
-<input type="submit" value="Send" class="btn btn-default" id="btn" > 
+<input type="submit" value="Send" class="btn btn-default" > 
 }

@@ -19,7 +19,7 @@ namespace WebApplication
         public double grade { get; set; }
         public int confidence { get; set; }
         public string comment { get; set; }
-        public string comment_to_edit { get; set; }
+        public string comment_to_editor { get; set; }
         public string date_submitted { get; set; }
         public string from_subreviewer { get; set; }
     

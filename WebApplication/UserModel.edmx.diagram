@@ -4,28 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="36abbd07d1b141fa9e53f3d85bfaad98" Name="Diagram" ZoomLevel="66" >
-        <EntityTypeShape EntityType="UserModel.User" Width="3" PointX="6.625" PointY="3.125" />
-        <EntityTypeShape EntityType="UserModel.Conference" Width="1.5" PointX="13.375" PointY="2.75" />
+      <Diagram DiagramId="36abbd07d1b141fa9e53f3d85bfaad98" Name="Diagram" ZoomLevel="89" >
+        <EntityTypeShape EntityType="UserModel.User" Width="3" PointX="7.75" PointY="2.375" />
+        <EntityTypeShape EntityType="UserModel.Conference" Width="1.5" PointX="13.5" PointY="3" />
         <AssociationConnector Association="UserModel.ConferenceChair" ManuallyRouted="false" >
         </AssociationConnector>
-        <EntityTypeShape EntityType="UserModel.PCmember" Width="1.5" PointX="10.625" PointY="2.75" />
+        <EntityTypeShape EntityType="UserModel.PCmember" Width="1.5" PointX="11.25" PointY="2.75" />
         <AssociationConnector Association="UserModel.PCmembersUser" />
-        <EntityTypeShape EntityType="UserModel.Paper" Width="1.5" PointX="11.625" PointY="7.625" />
+        <EntityTypeShape EntityType="UserModel.Paper" Width="1.5" PointX="16.375" PointY="6.875" />
         <AssociationConnector Association="UserModel.PCmemberConference" />
-        <EntityTypeShape EntityType="UserModel.Subreviewer" Width="1.5" PointX="4.625" PointY="6.375" />
+        <EntityTypeShape EntityType="UserModel.Subreviewer" Width="1.5" PointX="9.125" PointY="6.75" />
         <AssociationConnector Association="UserModel.UserSubreviewer" />
-        <EntityTypeShape EntityType="UserModel.Subreview" Width="1.5" PointX="2.25" PointY="6.25" />
-        <AssociationConnector Association="UserModel.SubreviewSubreviewer" />
-        <EntityTypeShape EntityType="UserModel.PaperAssignment" Width="1.5" PointX="9.625" PointY="7.375" />
+        <EntityTypeShape EntityType="UserModel.PaperAssignment" Width="1.5" PointX="14" PointY="6.75" />
         <AssociationConnector Association="UserModel.PaperAssignmentPCmember" />
-        <AssociationConnector Association="UserModel.PaperAssignmentSubreviewer" />
         <AssociationConnector Association="UserModel.PaperPaperAssignment" />
-        <EntityTypeShape EntityType="UserModel.Review" Width="1.5" PointX="6.875" PointY="7.5" />
+        <EntityTypeShape EntityType="UserModel.Review" Width="1.5" PointX="11.875" PointY="6.625" />
         <AssociationConnector Association="UserModel.PaperAssignmentReview" />
-        <EntityTypeShape EntityType="UserModel.Author" Width="1.5" PointX="13.625" PointY="6.125" />
+        <EntityTypeShape EntityType="UserModel.Author" Width="1.5" PointX="16.25" PointY="4.375" />
         <AssociationConnector Association="UserModel.AuthorPaper" ManuallyRouted="false" >
         </AssociationConnector>
+        <AssociationConnector Association="UserModel.PaperAssignmentSubreviewer" />
+        <EntityTypeShape EntityType="UserModel.Subreview" Width="1.5" PointX="6.625" PointY="7" />
+        <AssociationConnector Association="UserModel.SubreviewerSubreview" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

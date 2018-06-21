@@ -21,19 +21,22 @@ namespace WebApplication
         }
     
         public int id_paper { get; set; }
-        public string id_conference { get; set; }
+        public int id_conference { get; set; }
         public string title { get; set; }
         public string pdf { get; set; }
-        public System.TimeSpan date_submitted { get; set; }
+        public System.DateTime date_submitted { get; set; }
         public bool is_submitted { get; set; }
-        public string decision { get; set; }
+        public bool decision { get; set; }
         public string decision_text { get; set; }
-        public System.TimeSpan decision_date { get; set; }
+        public System.DateTime decision_date { get; set; }
         public string email { get; set; }
         public string contributions { get; set; }
+        public string text { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaperAssignment> PaperAssignments { get; set; }
         public virtual Author Author { get; set; }
+
+       
     }
 }

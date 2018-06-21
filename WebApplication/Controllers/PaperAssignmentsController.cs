@@ -20,6 +20,12 @@ namespace WebApplication.Controllers
             return View(db.PaperAssignments.ToList());
         }
 
+        public ActionResult Assign()
+        {
+
+            return View();
+        }
+
         // GET: PaperAssignments/Details/5
         public ActionResult Details(int? id)
         {

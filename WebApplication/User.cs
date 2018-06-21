@@ -37,7 +37,7 @@ namespace WebApplication
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subreviewer> Subreviewers { get; set; }
 
-        public String confirmPassword { get; set; }
+        public string confirmPassword { get; set; }
         public string text { get; set; }
     }
 }

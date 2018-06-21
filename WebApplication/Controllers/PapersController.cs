@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,11 +17,26 @@ namespace WebApplication.Controllers
         private UserModelContainer db = new UserModelContainer();
 
         // GET: Papers
-        public ActionResult Index()
+       public ActionResult Index()
         {
-            return View(db.Papers.ToList());
-        }
+            User user = (User)Session["User"];
+            //se extrage autorul care e pe sesiune
+            Author au = (from u in db.Authors where (user.id_user).Equals(u.id_user) select u).FirstOrDefault();
+            Author a = db.Authors.Find(au.id_author);
+            List<Paper> papersList = db.Papers.ToList();
+            List<Paper> papersShow = new List<Paper>();
 
+            //se ia id-ul autorului
+            //se afiseaza toate lucrarile lui 
+            foreach (Paper paper in papersList)
+            {
+                if(paper.Author==a)
+                {
+                    papersShow.Add(paper);
+                }
+            }
+            return View(papersShow);
+        }
         // GET: Papers/Details/5
         public ActionResult Details(int? id)
         {
@@ -118,21 +135,66 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitPaper([Bind(Include = "id_paper,id_conference,title,pdf,date_submitted,is_submitted,decision,decision_text,decision_date,email,contributions")] Paper paper)
+        public ActionResult SubmitPaper([Bind(Include = "id_paper,title,pdf,email,contributions,text")] Paper paper, int id_conference, HttpPostedFileBase file)
         {
-            User user= (User)Session["User"];
-            Author a = (from u in db.Authors where (u.id_user).Equals(user.id_user) select u).FirstOrDefault();
-            if (ModelState.IsValid)
-            {
-                db.Papers.Add(paper);
-                db.SaveChanges();
+                PCmember newPCmember = new PCmember();
+                User user = (User)Session["User"];
+                Author a = (from u in db.Authors where (u.id_user).Equals(user.id_user) select u).FirstOrDefault();
+                Author au = db.Authors.Find(a.id_author);
+                paper.id_conference = id_conference;
+                paper.Author = au;
+                paper.date_submitted = DateTime.Now;
+                paper.is_submitted = true;
+                paper.decision_date = DateTime.Now.AddHours(48);
+                paper.decision_text = "";
+                paper.decision = false;
                 a.id_paper = paper.id_paper;
-              //conferences cu dropdown list
+                paper.PaperAssignments = new List<PaperAssignment>();
+                newPCmember.id_user = user.id_user;
+                newPCmember.id_conference = id_conference;
+                newPCmember.is_chair = false;
+                newPCmember.date_invitation_acc = DateTime.Now;
+                newPCmember.date_invitation_sent = DateTime.Now;
+                newPCmember.is_valid = false;
+
+            if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/PaperFiles"), fileName);
+                file.SaveAs(path);
+            }
+
+
+            if (ModelState.IsValid)
+                {
+                    db.Papers.Add(paper);
+                try
+                {
+                    db.SaveChanges();
+
+                }catch(DbEntityValidationException e)
+{
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
+                //conferences cu dropdown list
 
                 return RedirectToAction("Index");
-            }
+                }
+
+
 
             return View(paper);
         }
