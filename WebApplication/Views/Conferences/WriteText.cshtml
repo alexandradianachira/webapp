@@ -3,8 +3,14 @@
     ViewBag.Title = "WriteText";
 }
 <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
-
-<h2>WriteText</h2>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<hr />
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+<h2>Send message</h2>
 <hr />
 
 @using (Html.BeginForm())
@@ -12,16 +18,26 @@
     @Html.AntiForgeryToken()
 <dl>
     <dt>
-        @*@Html.ActionLink("Send invite", "SendInvite")*@
         @Html.DisplayNameFor(model => model.text)
     </dt>
     <dd>
 
-        @*@Html.TextArea("Send a message", null, new { @class = "form-control" })*@
         @Html.EditorFor(model => model.text, new { htmlAttributes = new { @class = "form-control", required = "required" } })
 
     </dd>
    
 </dl>
-<input type="submit" value="Send" class="btn btn-default" > 
+<input type="submit" value="Send" class="btn btn-default" />
+    
 }
+<hr/>
+<div class="container">
+    <ul class="nav nav-pills nav-stacked">
+
+      
+        <li><a href="@Url.Action("Index", "Conferences")">Back to Conferences</a></li>
+        <li><a href="@Url.Action("HCarousel", "Home")">Back to home</a></li>
+
+
+    </ul>
+</div>

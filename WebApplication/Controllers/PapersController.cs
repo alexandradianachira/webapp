@@ -21,21 +21,38 @@ namespace WebApplication.Controllers
         {
             User user = (User)Session["User"];
             //se extrage autorul care e pe sesiune
-            Author au = (from u in db.Authors where (user.id_user).Equals(u.id_user) select u).FirstOrDefault();
-            Author a = db.Authors.Find(au.id_author);
+            List<Author> authors = db.Authors.ToList();
             List<Paper> papersList = db.Papers.ToList();
             List<Paper> papersShow = new List<Paper>();
-
-            //se ia id-ul autorului
-            //se afiseaza toate lucrarile lui 
-            foreach (Paper paper in papersList)
+            //se primesc toti autorii 
+            foreach (Author author in authors)
             {
-                if(paper.Author==a)
+                if (user.id_user == author.id_user)
                 {
-                    papersShow.Add(paper);
+                    Author a = db.Authors.Find(author.id_author);
+                    foreach (Paper paper in papersList)
+                    {
+                        if (paper.Author.id_author == a.id_author)
+                        {
+                            papersShow.Add(paper);
+                        }
+                    }
                 }
+                
+            }
+            if(papersShow==null)
+            {
+                ViewBag.Message = "You don't have any papers";
+
             }
             return View(papersShow);
+        }
+
+        public ActionResult AddDecision()
+        {
+            List<Conference> conferences = db.Conferences.ToList();
+            return View();
+
         }
         // GET: Papers/Details/5
         public ActionResult Details(int? id)
@@ -127,6 +144,7 @@ namespace WebApplication.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Paper paper = db.Papers.Find(id);
+           
             db.Papers.Remove(paper);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -138,7 +156,7 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitPaper([Bind(Include = "id_paper,title,pdf,email,contributions,text")] Paper paper, int id_conference, HttpPostedFileBase file)
+        public ActionResult SubmitPaper([Bind(Include = "id_paper,title,pdf,email,contributions,text")] Paper paper, int id_conference)
         {
                 PCmember newPCmember = new PCmember();
                 User user = (User)Session["User"];
@@ -153,24 +171,22 @@ namespace WebApplication.Controllers
                 paper.decision = false;
                 a.id_paper = paper.id_paper;
                 paper.PaperAssignments = new List<PaperAssignment>();
-                newPCmember.id_user = user.id_user;
+                User us = db.Users.Find(user.id_user);
+                newPCmember.User = us;
+                newPCmember.id_user = us.id_user;
+                Conference C = db.Conferences.Find(id_conference);
+                newPCmember.Conference =C;
                 newPCmember.id_conference = id_conference;
                 newPCmember.is_chair = false;
                 newPCmember.date_invitation_acc = DateTime.Now;
                 newPCmember.date_invitation_sent = DateTime.Now;
                 newPCmember.is_valid = false;
 
-            if (file.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/PaperFiles"), fileName);
-                file.SaveAs(path);
-            }
-
 
             if (ModelState.IsValid)
                 {
                     db.Papers.Add(paper);
+                    db.PCmembers.Add(newPCmember);
                 try
                 {
                     db.SaveChanges();
@@ -189,7 +205,6 @@ namespace WebApplication.Controllers
                     }
                     throw;
                 }
-                //conferences cu dropdown list
 
                 return RedirectToAction("Index");
                 }

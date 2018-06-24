@@ -14,13 +14,11 @@ namespace WebApplication.Controllers
     {
         private UserModelContainer db = new UserModelContainer();
 
-        // GET: Reviews1
         public ActionResult Index()
         {
             return View(db.Reviews.ToList());
         }
 
-        // GET: Reviews1/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,15 +33,12 @@ namespace WebApplication.Controllers
             return View(review);
         }
 
-        // GET: Reviews1/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Reviews1/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_review,id_paper_assignment,grade,confidence,comment,comment_to_edit,date_submitted,from_subreviewer")] Review review)
@@ -73,9 +68,7 @@ namespace WebApplication.Controllers
             return View(review);
         }
 
-        // POST: Reviews1/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_review,id_paper_assignment,grade,confidence,comment,comment_to_edit,date_submitted,from_subreviewer")] Review review)

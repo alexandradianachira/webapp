@@ -210,15 +210,13 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorsController.cs" />
-    <Compile Include="Controllers\ChairController.cs" />
     <Compile Include="Controllers\ConferencesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\PaperAssignmentsController.cs" />
     <Compile Include="Controllers\PCmembersController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\SubreviewersController.cs" />
+    <Compile Include="Controllers\SubreviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PapersController.cs" />
@@ -444,11 +442,6 @@
     <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
-    <Content Include="Views\Subreviews\Create.cshtml" />
-    <Content Include="Views\Subreviews\Delete.cshtml" />
-    <Content Include="Views\Subreviews\Details.cshtml" />
-    <Content Include="Views\Subreviews\Edit.cshtml" />
-    <Content Include="Views\Subreviews\Index.cshtml" />
     <Content Include="Views\PaperAssignments\Create.cshtml" />
     <Content Include="Views\PaperAssignments\Delete.cshtml" />
     <Content Include="Views\PaperAssignments\Details.cshtml" />
@@ -474,6 +467,16 @@
     <Content Include="Views\PCmembers\AcceptDecline.cshtml" />
     <Content Include="Views\Authors\Error.cshtml" />
     <Content Include="Views\Papers\AllPapers.cshtml" />
+    <Content Include="Views\PCmembers\AllPCmembers.cshtml" />
+    <Content Include="Views\Subreviews\Create.cshtml" />
+    <Content Include="Views\Subreviews\Delete.cshtml" />
+    <Content Include="Views\Subreviews\Details.cshtml" />
+    <Content Include="Views\Subreviews\Edit.cshtml" />
+    <Content Include="Views\Subreviews\Index.cshtml" />
+    <Content Include="Views\Subreviews\AddSubreview.cshtml" />
+    <Content Include="Views\Subreviews\SubreviewsForChair.cshtml" />
+    <Content Include="Views\Papers\AddDecision.cshtml" />
+    <Content Include="Views\Papers\SubreviewsPaper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

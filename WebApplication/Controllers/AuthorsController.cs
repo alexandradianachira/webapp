@@ -47,23 +47,24 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult CreateAuthor([Bind(Include = "email, password")]User user)
         {
-
             Author newAuthor = new Author();
+            PCmember newPCmember = new PCmember();
             User x = (User)Session["User"];
             User c = (from u in db.Users where user.email.Equals(x.email) && user.password.Equals(x.password) select u).FirstOrDefault();
             if (c != null)
             {
                 newAuthor.id_user = x.id_user;
-                // newAuthor.is_coresponding = true;
                 newAuthor.is_coresponding = false;
+
                 db.Authors.Add(newAuthor);
                 db.SaveChanges();
+
+              
                 return RedirectToAction("AllConferences", "Conferences");
 
             }
             else
             {
-                //System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=""JavaScript"">alert("Y")</SCRIPT>");
                 ViewBag.Message = "You don't have an account, please create an account";
                 return RedirectToAction("NewUser", "Users");
             }
@@ -85,24 +86,20 @@ namespace WebApplication.Controllers
             return View(author);
         }
 
-        // POST: Authors/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_user")] Author author, String email, String password)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
 
-            //    db.Entry(author).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
+                db.Entry(author).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-           
-                
-               return View(author);
+            return View(author);
         }
 
         // GET: Authors/Delete/5

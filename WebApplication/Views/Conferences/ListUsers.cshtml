@@ -39,10 +39,14 @@
 
       
     </dl>
-    @*@Html.ActionLink("Write a text", "WriteText")*@
+    <hr/>
     <div class="container">
         <ul class="nav nav-pills nav-stacked">
             <li><a href="@Url.Action("WriteText", "Conferences")">Write a message</a></li>
+            <li><a href="@Url.Action("Index", "Conferences")">Back to Conferences</a></li>
+            <li><a href="@Url.Action("HCarousel", "Home")">Back to home</a></li>
+
+
           
         </ul>
     </div>

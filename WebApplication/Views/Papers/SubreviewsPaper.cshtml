@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<WebApplication.Paper>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SubreviewsPaper";
 }
 
-<h2>Index</h2>
+<h2>SubreviewsPaper</h2>
 
 <p>
-    @Html.ActionLink("Submit new paper", "AllConferences", "Conferences")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -40,6 +40,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.contributions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.text)
         </th>
         <th></th>
     </tr>
@@ -77,6 +80,9 @@
             @Html.DisplayFor(modelItem => item.contributions)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.text)
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id_paper }) |
             @Html.ActionLink("Details", "Details", new { id=item.id_paper }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id_paper })
@@ -85,15 +91,3 @@
 }
 
 </table>
-@if (ViewBag.Message != null)
-{
-    <script type="text/javascript">
-                window.onload=function()
-                {
-                    alert("@ViewBag.Message");
-                }
-    </script>
-}
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -41,9 +41,7 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        // POST: PCmembers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_pcmember,id_user,id_conference,is_chair,date_invitation_sent,date_invitation_acc,is_valid")] PCmember pCmember)
@@ -73,9 +71,7 @@ namespace WebApplication.Controllers
             return View(pCmember);
         }
 
-        // POST: PCmembers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_pcmember,id_user,id_conference,is_chair,date_invitation_sent,date_invitation_acc,is_valid")] PCmember pCmember)
@@ -89,7 +85,6 @@ namespace WebApplication.Controllers
             return View(pCmember);
         }
 
-        // GET: PCmembers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +99,6 @@ namespace WebApplication.Controllers
             return View(pCmember);
         }
 
-        // POST: PCmembers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -117,10 +111,8 @@ namespace WebApplication.Controllers
 
 
 
-
         public ActionResult AcceptDecline()
         {
-
 
             return View();
 
@@ -139,6 +131,7 @@ namespace WebApplication.Controllers
                 newPcMember.Conference = db.Conferences.Find(id_conference);
                 String confName = newPcMember.Conference.conference_name;
                 newPcMember.id_user = newPcMember.User.id_user;
+                int id = newPcMember.id_user;
                 newPcMember.id_conference = newPcMember.Conference.id_conference;
                 newPcMember.is_chair = false;
                 newPcMember.is_valid = false;
@@ -147,28 +140,33 @@ namespace WebApplication.Controllers
                 DateTime myDate = DateTime.Parse(invitation_sent);
                 newPcMember.date_invitation_sent = (DateTime)myDate;
                 db.PCmembers.Add(newPcMember);
+                db.SaveChanges();
+
+                PCmember pcm = db.PCmembers.Find(newPcMember.id_pcmember);
 
                 PaperAssignment newPaperAssignment = new PaperAssignment();
                 Conference conf = db.Conferences.Find(id_conference);
                 newPaperAssignment.Paper = paper;
-                newPaperAssignment.PCmember = newPcMember;
+                newPaperAssignment.PCmember = pcm;
                 newPaperAssignment.id_paper = paper.id_paper;
-                newPaperAssignment.id_pcmember = newPcMember.id_pcmember;
+                newPaperAssignment.id_pcmember = pcm.id_pcmember;
 
 
-                // de refacut
-                newPaperAssignment.date_assigned = DateTime.Now;
-                newPaperAssignment.date_due = DateTime.Now;
-                newPaperAssignment.is_delegated = false; 
+                // de refacut - date_assigned - date_submitted
+                newPaperAssignment.date_assigned = paper.date_submitted;
+                //termen de 2 zile pana cand mai poate reincarca lucrarea
+                newPaperAssignment.date_due = newPaperAssignment.date_assigned.AddHours(48);
+                newPaperAssignment.is_delegated = false;
                 db.PaperAssignments.Add(newPaperAssignment);
+                db.SaveChanges();
+              
 
-
+                PaperAssignment pp = db.PaperAssignments.Find(newPaperAssignment.id_paper_assignment);
                 Subreviewer newSubreviewer = new Subreviewer();
-                // PaperAssignment paperAssignment=(from u in db.PaperAssignments where )
-                newSubreviewer.PaperAssignment = newPaperAssignment;
-                newSubreviewer.id_paper_assignment = newPaperAssignment.id_paper_assignment;
-                //PCmember pcmeber = (from u in db.PCmembers where newPaperAssignment.id_pcmember==id )
-                PaperAssignment p = db.PaperAssignments.Find(newPaperAssignment.id_paper_assignment);
+
+                newSubreviewer.PaperAssignment = pp;
+                newSubreviewer.id_paper_assignment = pp.id_paper_assignment;
+                PaperAssignment p = db.PaperAssignments.Find(pp.id_paper_assignment);
                 PCmember pc = p.PCmember;
                 User us = db.Users.Find(pc.id_user);
                 newSubreviewer.User = us;
@@ -182,6 +180,7 @@ namespace WebApplication.Controllers
 
                 db.Subreviewers.Add(newSubreviewer);
                 db.SaveChanges();
+                
 
             }
             else if (Request.Form["Decline"] != null)
@@ -190,13 +189,20 @@ namespace WebApplication.Controllers
 
             }
 
-            return RedirectToAction("HCarousel", "Home");
+            return RedirectToAction("Index", "Subreviewers", new { id=id_user});
         }
         public ActionResult Reconsideration()
         {
             return View();
         }
 
+        public ActionResult AllPCmembers()
+        {
+            ViewBag.Users = db.Users.ToList();
+            ViewBag.Conferences = db.Conferences.ToList();
+
+            return View(db.PCmembers.ToList());
+        }
 
         protected override void Dispose(bool disposing)
         {

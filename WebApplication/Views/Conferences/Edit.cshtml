@@ -62,12 +62,7 @@
                         <input type="submit" value="Save" class="btn btn-default" />
                     </div>
                     </div>
-                @*</div>
-              @Html.ActionLink("Click here to invite PCmembers", "ListUsers")
-
-                    @Html.ValidationMessageFor(model => model.end_date, "", new { @class = "text-danger" })
-                </div>*@
-
+              
 
 
 
@@ -75,12 +70,9 @@
         
         }
 
-        @*<div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>*@
+       
 <div class="container">
     <ul class="nav nav-pills nav-stacked">
-        @*<li><a href="@Url.Action("ListUsers", "Conferences")">Invite users</a></li>*@
         <li><a href="@Url.Action("Index", "Conferences")">Back to list</a></li>
    
     </ul>

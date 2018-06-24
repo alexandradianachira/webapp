@@ -40,15 +40,8 @@ namespace WebApplication.Controllers
                 if (user != null)
                 {
                     Session["User"] = user;
-                    //
-                   // if (Session["User"] != null)
-                
                         return RedirectToAction("Welcoming", "Users");
-                   
-                    // se pune userul user pe session 
-                    // cand pe session avem un user, inseamna ca exista user logat
-                    //else
-                  
+
                 }
                 else
                     ViewBag.Message = "Your password or e-mail is incorrect, try again";
@@ -60,11 +53,10 @@ namespace WebApplication.Controllers
 
         public ActionResult Logout()
         {
-            //var a = Session["User"];
+          
             Session["User"] = null;
             Session.Remove("User");
             var a = Session["User"];
-            //Session.Clear();
             return RedirectToAction("HCarousel", "Home");
         }
 
@@ -133,8 +125,6 @@ namespace WebApplication.Controllers
             // var body = "Verification Key - Enter into link below " + verification_key;
             var body = string.Format("Dear, {0} <BR/>  <br/> Thank you for your registration, please click on the below link to complete your registration:  <a href =\"{1}\" title =\"User Email Confirm\">{1}</a>", first_name, Url.Action("EnterVerificationKey", "Users", new { verification_key, email }, Request.Url.Scheme));
 
-            //  var body = GetFormattedMessageHTML(email, first_name,verification_key);
-
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -173,10 +163,6 @@ namespace WebApplication.Controllers
                                now24.CompareTo(u.date_verification_send) > 0
                          select u).FirstOrDefault();
 
-            //User nuser = db.Users.Where(
-            //u => u.verification_key.Equals(verification_key) && u.email.Equals(email)
-            //&& u.date_verification_send < now && now < u.date_verification_send.AddHours(24)).FirstOrDefault();
-
 
             int? x = (from u in db.Users
                       where u.verification_key.Equals(verification_key) &&
@@ -198,10 +184,6 @@ namespace WebApplication.Controllers
                     return RedirectToAction("ErrorVerificationKey");
             }
 
-            // acuma userul trebuie validat si trebuie sa isi dea o parola
-            // trebuie redirectionat catre view-ul unde isi introduce parola
-            // la redirectionare transmitem in camp ascuns now
-            // in controllerul de la set new password trebuie sa identifici un user in bd dat de data aceasta dupa cheia primara
         }
 
         public ActionResult SetNewPassword()
@@ -245,10 +227,7 @@ namespace WebApplication.Controllers
                 } return View();
         }
 
-        //public ActionResult ErrorVerificationKey()
-        //{
-        //    return View();
-        //}
+  
 
         public ActionResult Edit()
         {
@@ -267,9 +246,7 @@ namespace WebApplication.Controllers
             return View(user);
         }
 
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_user,surname,first_name,email,institution,password")] User user)

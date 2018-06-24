@@ -1,15 +1,22 @@
 ﻿@model IEnumerable<WebApplication.Subreview>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SubviewsForChair";
 }
 
-<h2>Index</h2>
+<h2>SubviewsForChair</h2>
 
-
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
-        
+        <th>
+            Reviewer's name
+        </th>
+        <th>
+            Paper title
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.grade)
         </th>
@@ -30,7 +37,13 @@
 
 @foreach (var item in Model) {
     <tr>
-     
+        <td>
+            @Html.DisplayFor(modelItem => item.Subreviewer.User.surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subreviewer.PaperAssignment.Paper.title)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.grade)
         </td>
@@ -48,19 +61,10 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id_subreview }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_subreview }) 
-            
+            @Html.ActionLink("Details", "Details", new { id=item.id_subreview }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_subreview })
         </td>
     </tr>
 }
 
 </table>
-<hr />
-<p>Important!</p>
-<p>Grade : You must give a grade for the scientific paper</p>
-<p>Confidence : You must give yourself a grade that illustrates how much you are experienced in evaluating this paper. The assessment is as follows: each evaluator gives a score of 1-5; 1 - the evaluator considers that he is not at all specialized in this field or knows very little in the field, 5 - the evaluator has excellent skills acquired for the field in which the paper was written</p>
-<p>Comment : Enter your suggestions / recommendations</p>
-<p>Comment to edit : If you edit your comment, the old one will be displayed here</p>
-
-
-

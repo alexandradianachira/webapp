@@ -14,11 +14,43 @@ namespace WebApplication.Controllers
     {
         private UserModelContainer db = new UserModelContainer();
 
+        //public ActionResult Index(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //   User user= db.Users.Find(id);
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(user);
+        //}
         // GET: Subreviewers
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-
-            return View(db.Subreviewers.ToList());
+            
+            List<Subreviewer> subreviewerUser = new List<Subreviewer>();
+            User user = (User)Session["User"];
+            List<Subreviewer> db_subreviewers = db.Subreviewers.ToList();
+            if(id!=null)
+            {
+                foreach (Subreviewer sub in db_subreviewers)
+                {
+                    if (sub.id_user == id)
+                    {
+                        subreviewerUser.Add(sub);
+                    }
+                    PaperAssignment paperAssignment = db.PaperAssignments.Find(sub.id_paper_assignment);
+                    Paper paper = db.Papers.Find(paperAssignment.id_paper);
+                    ViewBag.Paper = paper;
+                    Conference conference = db.Conferences.Find(paper.id_conference);
+                    ViewBag.Conference = conference;
+                }
+            }
+            
+            return View(subreviewerUser);
         }
 
         // GET: Subreviewers/Details/5
@@ -42,9 +74,7 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        // POST: Subreviewers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_subreviewer,id_paper_assignment,id_user,invitation_send_date,invitation_ack,is_accepted")] Subreviewer subreviewer)
@@ -74,9 +104,7 @@ namespace WebApplication.Controllers
             return View(subreviewer);
         }
 
-        // POST: Subreviewers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_subreviewer,id_paper_assignment,id_user,invitation_send_date,invitation_ack,is_accepted")] Subreviewer subreviewer)

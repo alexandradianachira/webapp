@@ -47,9 +47,7 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        // POST: PaperAssignments/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_paper_assignment,id_paper,id_pcmember,date_assigned,date_due,is_delegated")] PaperAssignment paperAssignment)
@@ -79,9 +77,7 @@ namespace WebApplication.Controllers
             return View(paperAssignment);
         }
 
-        // POST: PaperAssignments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_paper_assignment,id_paper,id_pcmember,date_assigned,date_due,is_delegated")] PaperAssignment paperAssignment)
