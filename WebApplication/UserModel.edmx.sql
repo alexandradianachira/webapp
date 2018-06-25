@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/21/2018 23:15:34
+-- Date Created: 06/26/2018 01:23:27
 -- Generated from EDMX file: D:\anul III\WebApplication\WebApplication\UserModel.edmx
 -- --------------------------------------------------
 
@@ -176,7 +176,7 @@ CREATE TABLE [dbo].[Reviews] (
     [confidence] int  NOT NULL,
     [comment] nvarchar(max)  NOT NULL,
     [comment_to_editor] nvarchar(max)  NOT NULL,
-    [date_submitted] nvarchar(max)  NOT NULL,
+    [date_submitted] datetime  NOT NULL,
     [from_subreviewer] nvarchar(max)  NOT NULL,
     [PaperAssignment_id_paper_assignment] int  NOT NULL
 );

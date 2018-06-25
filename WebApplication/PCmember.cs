@@ -11,7 +11,8 @@ namespace WebApplication
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class PCmember
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,9 +24,17 @@ namespace WebApplication
         public int id_pcmember { get; set; }
         public int id_user { get; set; }
         public int id_conference { get; set; }
+        [DisplayName("Is chair")]
+
         public bool is_chair { get; set; }
+        [DisplayName("Date invitation sent")]
+
         public System.DateTime date_invitation_sent { get; set; }
+        [DisplayName("Date invitation accepted")]
+
         public System.DateTime date_invitation_acc { get; set; }
+        [DisplayName("Is valid")]
+
         public bool is_valid { get; set; }
     
         public virtual User User { get; set; }

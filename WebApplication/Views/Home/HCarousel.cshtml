@@ -15,13 +15,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/basic.css">
-   
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-    <div class="container" >
+    <div class="container">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -71,7 +71,7 @@
                 <h2>Getting started</h2>
                 <div>
                     <p>
-                       
+
                         @if (Session["User"] == null)
                         {
                             <a class="btn btn-default" href="@Url.Action("Create","Users")">Create an account »</a><br />
@@ -84,7 +84,7 @@
                             <a class="btn btn-default" href="@Url.Action("Welcoming","Users")">See what you can do »</a>
 
                         }
-              
+
 
 
                     </p>
@@ -124,7 +124,7 @@
 
     </div>
 
-            <hr />
+    <hr />
 
 </body>
 </html>

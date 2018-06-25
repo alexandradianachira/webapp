@@ -35,15 +35,13 @@ namespace WebApplication.Controllers
             return View(author);
         }
 
-        // GET: Authors/Create
+        //creare autor
         public ActionResult CreateAuthor()
         {
             return View();
         }
 
-        // POST: Authors/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         public ActionResult CreateAuthor([Bind(Include = "email, password")]User user)
         {
@@ -55,11 +53,8 @@ namespace WebApplication.Controllers
             {
                 newAuthor.id_user = x.id_user;
                 newAuthor.is_coresponding = false;
-
                 db.Authors.Add(newAuthor);
                 db.SaveChanges();
-
-              
                 return RedirectToAction("AllConferences", "Conferences");
 
             }
@@ -68,9 +63,9 @@ namespace WebApplication.Controllers
                 ViewBag.Message = "You don't have an account, please create an account";
                 return RedirectToAction("NewUser", "Users");
             }
-                
+
         }
-       
+
         // GET: Authors/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -86,7 +81,7 @@ namespace WebApplication.Controllers
             return View(author);
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_user")] Author author, String email, String password)

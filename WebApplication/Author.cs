@@ -21,6 +21,7 @@ namespace WebApplication
         }
     
         public int id_author { get; set; }
+        
         public int id_paper { get; set; }
         public int id_user { get; set; }
         public bool is_coresponding { get; set; }

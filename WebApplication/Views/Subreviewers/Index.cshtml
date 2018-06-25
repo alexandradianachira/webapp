@@ -23,7 +23,7 @@
         </th>
         <th>
             Start date
-         </th>
+        </th>
         <th>
             End date
         </th>
@@ -31,7 +31,7 @@
             Title
         </th>
         <th>
-           PDF
+            PDF
         </th>
         <th>
             Date submitted
@@ -43,41 +43,42 @@
             Contributions
         </th>
         <th>
-        Chair's decision
+            Chair's decision
         </th>
-       
+
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{       
-     <tr>
-             <td>
-                 @Html.DisplayFor(modelItem => item.User.first_name)
-             </td>
-             <td>
-                 @Html.DisplayFor(modelItem => item.User.surname)
-             </td>
-                <td class="conference_name">@ViewBag.Conference.conference_name  </td>
-                <td class="location">@ViewBag.Conference.location  </td>
-                <td class="start_date">@ViewBag.Conference.start_date  </td>
-                <td class="end_date">@ViewBag.Conference.end_date </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.surname)
+            </td>
+            <td class="conference_name">@ViewBag.Conference.conference_name  </td>
+            <td class="location">@ViewBag.Conference.location  </td>
+            <td class="start_date">@ViewBag.Conference.start_date  </td>
+            <td class="end_date">@ViewBag.Conference.end_date </td>
 
-                <td class="title">@ViewBag.Paper.title  </td>
-                <td class="pdf">@ViewBag.Paper.pdf </td>
-                <td class="date_submitted">@ViewBag.Paper.date_submitted </td>
-                <td class="email">@ViewBag.Paper.email</td>
-                <td class="contributions">@ViewBag.Paper.contributions</td>
-                <td class="decision_text">@ViewBag.Paper.decision_text</td>
-                <td><a href="@Url.Action("AddSubreview", "Subreviews", new { id=item.id_subreviewer })">Add a review</a> </td>
-                           
-                
+            <td class="title">@ViewBag.Paper.title  </td>
+            <td class="pdf">@ViewBag.Paper.pdf </td>
+            <td class="date_submitted">@ViewBag.Paper.date_submitted </td>
+            <td class="email">@ViewBag.Paper.email</td>
+            <td class="contributions">@ViewBag.Paper.contributions</td>
+            <td class="decision_text">@ViewBag.Paper.decision_text</td>
+            <td><a href="@Url.Action("AddSubreview", "Subreviews", new { id=item.id_subreviewer })">Add a review</a> </td>
+
+
         </tr>
-}
+    }
 </table>
-<hr/>
+<hr />
 <div class="container">
     <ul class="nav nav-pills nav-stacked">
+
         <li><a href="@Url.Action("Index", "Conferences")">Back to list</a></li>
     </ul>
 </div>

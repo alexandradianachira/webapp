@@ -11,7 +11,8 @@ namespace WebApplication
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Paper
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,21 +23,39 @@ namespace WebApplication
     
         public int id_paper { get; set; }
         public int id_conference { get; set; }
+        [DisplayName("Title")]
+
         public string title { get; set; }
+        [DisplayName("PDF")]
+
         public string pdf { get; set; }
+        [DisplayName("Date submitted")]
+
         public System.DateTime date_submitted { get; set; }
+        [DisplayName("Is submitted")]
+
         public bool is_submitted { get; set; }
+        [DisplayName("Chair's decision")]
+
         public bool decision { get; set; }
+        [DisplayName("Chair's decision text")]
+
         public string decision_text { get; set; }
+        [DisplayName("Chair's decision date")]
+
         public System.DateTime decision_date { get; set; }
+        [DisplayName("Email")]
+
         public string email { get; set; }
+        [DisplayName("Contributions")]
+
         public string contributions { get; set; }
+        [DisplayName("Description")]
+
         public string text { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PaperAssignment> PaperAssignments { get; set; }
         public virtual Author Author { get; set; }
-
-       
     }
 }

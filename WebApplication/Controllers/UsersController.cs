@@ -29,7 +29,7 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Login(String password, String email)
         {
-      
+
             if (ModelState.IsValid)
             {
                 User user = (from u in db.Users
@@ -40,7 +40,7 @@ namespace WebApplication.Controllers
                 if (user != null)
                 {
                     Session["User"] = user;
-                        return RedirectToAction("Welcoming", "Users");
+                    return RedirectToAction("Welcoming", "Users");
 
                 }
                 else
@@ -53,14 +53,12 @@ namespace WebApplication.Controllers
 
         public ActionResult Logout()
         {
-          
+
             Session["User"] = null;
             Session.Remove("User");
             var a = Session["User"];
             return RedirectToAction("HCarousel", "Home");
         }
-
-
 
         public ActionResult Welcoming()
         {
@@ -87,9 +85,6 @@ namespace WebApplication.Controllers
             user.date_active = DateTime.Now.AddHours(24);
             user.date_verification_send = DateTime.Now;
             user.verification_key = KeyGenerator.GetUniqueKey(8);
-
-
-
 
             if (ModelState.IsValid)
             {
@@ -210,7 +205,7 @@ namespace WebApplication.Controllers
             if (ModelState.IsValid)
 
                 // var errors = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors);
-                if (password == confirmPassword)
+                if (password.Equals(confirmPassword))
                 {
                     user.password = password;
                     // se seteaza verfied account si date active din bd la data curenta
@@ -224,10 +219,11 @@ namespace WebApplication.Controllers
                 {
                     ViewBag.Message = "Your passwords are not coresponding";
 
-                } return View();
+                }
+            return View();
         }
 
-  
+
 
         public ActionResult Edit()
         {
@@ -246,7 +242,7 @@ namespace WebApplication.Controllers
             return View(user);
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_user,surname,first_name,email,institution,password")] User user)
@@ -272,12 +268,12 @@ namespace WebApplication.Controllers
         public ActionResult Details()
         {
             User x = (User)Session["User"];
-            int? id = x.id_user; 
+            int? id = x.id_user;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           User user = db.Users.Find(x.id_user);
+            User user = db.Users.Find(x.id_user);
             if (user == null)
             {
                 return HttpNotFound();

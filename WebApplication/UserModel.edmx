@@ -150,7 +150,7 @@
     <Property Name="confidence" Type="int" Nullable="false" />
     <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
     <Property Name="comment_to_editor" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="date_submitted" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="date_submitted" Type="datetime" Nullable="false" />
     <Property Name="from_subreviewer" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PaperAssignment_id_paper_assignment" Type="int" Nullable="false" />
   </EntityType>
@@ -477,7 +477,7 @@
           <Property Name="confidence" Type="Int32" Nullable="false" />
           <Property Name="comment" Type="String" Nullable="false" />
           <Property Name="comment_to_editor" Type="String" Nullable="false" />
-          <Property Name="date_submitted" Type="String" Nullable="false" />
+          <Property Name="date_submitted" Type="DateTime" Nullable="false" />
           <Property Name="from_subreviewer" Type="String" Nullable="false" />
           <NavigationProperty Name="PaperAssignment" Relationship="UserModel.PaperAssignmentReview" FromRole="Review" ToRole="PaperAssignment" />
         </EntityType>

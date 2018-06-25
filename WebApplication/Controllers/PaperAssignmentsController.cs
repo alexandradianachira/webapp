@@ -14,16 +14,48 @@ namespace WebApplication.Controllers
     {
         private UserModelContainer db = new UserModelContainer();
 
+
+        //subreviewer cu reviwes
+        public ActionResult SubreviewerDetails(int? id)
+        {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Users");
+
+            List<Subreviewer> subreviewerUser = new List<Subreviewer>();
+            List<PaperAssignment> pas = new List<PaperAssignment>();
+            User user = (User)Session["User"];
+            List<Subreviewer> db_subreviewers = (from u in db.Subreviewers where u.id_user == id select u).ToList();
+            foreach (Subreviewer sub in db_subreviewers)
+            {
+                pas.Add(sub.PaperAssignment);
+            }
+
+
+            return View(pas);
+        }
+
+
         // GET: PaperAssignments
         public ActionResult Index()
         {
             return View(db.PaperAssignments.ToList());
         }
 
-        public ActionResult Assign()
-        {
+       
 
-            return View();
+
+        public ActionResult ConferencePaper()
+        {//conf chair-ului cu conf si paper si reviewer
+            List<PaperAssignment> pas = new List<PaperAssignment>();
+            User user =(User) Session["User"];
+            foreach(PaperAssignment pa in db.PaperAssignments)
+            {
+                if(pa.PCmember.Conference.Chair.id_user==user.id_user)
+                {
+                    pas.Add(pa);
+                }
+            }
+            return View(pas);
         }
 
         // GET: PaperAssignments/Details/5

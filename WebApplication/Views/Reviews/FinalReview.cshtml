@@ -1,20 +1,14 @@
-﻿@model WebApplication.Subreview
+﻿@model WebApplication.Review
 
-@{
-    ViewBag.Title = "AddSubreview";
-}
-
-<h2>Add Review</h2>
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Subreview</h4>
+        <h4>Review</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.grade, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -39,25 +33,31 @@
                 @Html.ValidationMessageFor(model => model.comment, "", new { @class = "text-danger" })
             </div>
         </div>
-       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.comment_to_editor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.comment_to_editor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.comment_to_editor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.from_subreviewer, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.from_subreviewer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.from_subreviewer, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add Review" class="btn btn-default" />
+                <input type="submit" value="Add review" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
-<hr/>
-<hr />
-<p>Important!</p>
-<p>Grade : You must give a grade for the scientific paper</p>
-<p>Confidence : You must give yourself a grade that illustrates how much you are experienced in evaluating this paper. The assessment is as follows: each evaluator gives a score of 1-5; 1 - the evaluator considers that he is not at all specialized in this field or knows very little in the field, 5 - the evaluator has excellent skills acquired for the field in which the paper was written</p>
-<p>Comment : Enter your suggestions / recommendations</p>
-<p>Comment to edit : If you edit your comment, the old one will be displayed here</p>
-
-
 
 <div>
     @Html.ActionLink("Back to List", "Index")

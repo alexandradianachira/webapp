@@ -11,7 +11,8 @@ namespace WebApplication
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Conference
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,13 +20,16 @@ namespace WebApplication
         {
             this.PCmembers = new HashSet<PCmember>();
         }
-    
+
         public int id_conference { get; set; }
+        [DisplayName("Conference name")]
         public string conference_name { get; set; }
+        [DisplayName("Location")]
         public string location { get; set; }
+        [DisplayName("Start date")]
         public System.DateTime start_date { get; set; }
+        [DisplayName("End date")]
         public System.DateTime end_date { get; set; }
-    
         public virtual User Chair { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PCmember> PCmembers { get; set; }

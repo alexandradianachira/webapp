@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<WebApplication.Subreview>
 
 @{
-    ViewBag.Title = "SubviewsForChair";
+    ViewBag.Title = "SubreviewsForChair";
 }
 
-<h2>SubviewsForChair</h2>
+<h2>Subreviews for Chair</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -17,6 +15,12 @@
         <th>
             Paper title
         </th>
+        <th>
+            Conference
+        </th>
+        @*<th>
+                Autor
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.grade)
         </th>
@@ -35,36 +39,42 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subreviewer.User.surname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subreviewer.PaperAssignment.Paper.title)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subreviewer.User.surname) @Html.DisplayFor(modelItem => item.Subreviewer.User.first_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subreviewer.PaperAssignment.Paper.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subreviewer.PaperAssignment.PCmember.Conference.Chair.first_name)   @Html.DisplayFor(modelItem => item.Subreviewer.PaperAssignment.PCmember.Conference.Chair.surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subreviewer.PaperAssignment.PCmember.Conference.conference_name)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.grade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.confidence)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.comment_to_edit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_submitted)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_subreview }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_subreview }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_subreview })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.grade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.confidence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment_to_edit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_submitted)
+            </td>
+            <td>
+                    @Html.ActionLink("Add final Review ", "FinalReview", new { id=item.id_subreview }) |
+               
+                </td>
+        </tr>
+    }
 
 </table>

@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<WebApplication.Conference>
 
 @{
-    ViewBag.Title = "AllConferences";
+    ViewBag.Title = "ShowConferences";
 }
 
-<h2>Conferences</h2>
-<hr />
+<h2>Conferences for Chair</h2>
+
 
 <table class="table">
     <tr>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.end_date)
             </td>
             <td>
-                <a href="@Url.Action("SubmitPaper", "Papers",new { id_conference=item.id_conference })">Submit paper</a>
+                <a href="@Url.Action("AddDecision", "Papers",new { id=item.id_conference })">Add Decision</a>
             </td>
         </tr>
     }

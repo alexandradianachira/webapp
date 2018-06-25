@@ -14,44 +14,55 @@ namespace WebApplication.Controllers
     {
         private UserModelContainer db = new UserModelContainer();
 
-        //public ActionResult Index(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //   User user= db.Users.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
+
+        //lista cu papers, conf ca si evaluator - session user
         // GET: Subreviewers
         public ActionResult Index(int? id)
         {
-            
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Users");
+
             List<Subreviewer> subreviewerUser = new List<Subreviewer>();
             User user = (User)Session["User"];
-            List<Subreviewer> db_subreviewers = db.Subreviewers.ToList();
-            if(id!=null)
+            List<Subreviewer> db_subreviewers = (from u in db.Subreviewers where u.id_user == id select u).ToList();
+            if (id != null)
             {
                 foreach (Subreviewer sub in db_subreviewers)
                 {
-                    if (sub.id_user == id)
-                    {
-                        subreviewerUser.Add(sub);
-                    }
+
+                    subreviewerUser.Add(sub);
+
+
                     PaperAssignment paperAssignment = db.PaperAssignments.Find(sub.id_paper_assignment);
                     Paper paper = db.Papers.Find(paperAssignment.id_paper);
                     ViewBag.Paper = paper;
                     Conference conference = db.Conferences.Find(paper.id_conference);
                     ViewBag.Conference = conference;
                 }
+
             }
-            
+
             return View(subreviewerUser);
         }
+
+        public ActionResult SubreviewerDetails(int? id)
+        {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Users");
+
+            List<Subreviewer> subreviewerUser = new List<Subreviewer>();
+            List<PaperAssignment> pas = new List<PaperAssignment>();
+            User user = (User)Session["User"];
+            List<Subreviewer> db_subreviewers = (from u in db.Subreviewers where u.id_user == id select u).ToList();
+            foreach (Subreviewer sub in db_subreviewers)
+            {
+                pas.Add(sub.PaperAssignment);
+            }
+
+
+            return View(pas);
+        }
+
 
         // GET: Subreviewers/Details/5
         public ActionResult Details(int? id)
@@ -104,7 +115,7 @@ namespace WebApplication.Controllers
             return View(subreviewer);
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_subreviewer,id_paper_assignment,id_user,invitation_send_date,invitation_ack,is_accepted")] Subreviewer subreviewer)

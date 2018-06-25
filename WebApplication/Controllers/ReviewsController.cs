@@ -14,6 +14,29 @@ namespace WebApplication.Controllers
     {
         private UserModelContainer db = new UserModelContainer();
 
+
+
+        public ActionResult FinalReview(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Review review = db.Reviews.Find(id);
+            if (review == null)
+            {
+                return HttpNotFound();
+            }
+            return View(review);
+        }
+
+        public ActionResult FinalReview([Bind(Include = "grade,confidence,comment,comment_to_editor, from_subreviewer")] Review review, int id)
+        {
+            review.date_submitted = DateTime.Now;
+            // review.from_subreviewer = 
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Index()
         {
             return View(db.Reviews.ToList());
@@ -38,10 +61,10 @@ namespace WebApplication.Controllers
             return View();
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id_review,id_paper_assignment,grade,confidence,comment,comment_to_edit,date_submitted,from_subreviewer")] Review review)
+        public ActionResult Create([Bind(Include = "id_review,id_paper_assignment,grade,confidence,comment,comment_to_editor,date_submitted,from_subreviewer")] Review review)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +84,7 @@ namespace WebApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Review review = db.Reviews.Find(id);
+
             if (review == null)
             {
                 return HttpNotFound();
@@ -68,10 +92,10 @@ namespace WebApplication.Controllers
             return View(review);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_review,id_paper_assignment,grade,confidence,comment,comment_to_edit,date_submitted,from_subreviewer")] Review review)
+        public ActionResult Edit([Bind(Include = "id_review,id_paper_assignment,grade,confidence,comment,comment_to_editor,date_submitted,from_subreviewer")] Review review)
         {
             if (ModelState.IsValid)
             {

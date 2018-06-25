@@ -47,9 +47,17 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id_conference }) |
                 @Html.ActionLink("Details", "Details", new { id = item.id_conference }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id_conference })
+                @Html.ActionLink("Delete", "Delete", new { id = item.id_conference }) |
+                <a href="@Url.Action("AddDecision", "Papers",new { id=item.id_conference })">Add Decision</a> |
+                <a href="@Url.Action("SeePaper", "Papers", new { id=item.id_conference })">See paper</a> |
+
+
             </td>
         </tr>
     }
 
 </table>
+
+
+
+<a href="@Url.Action("ConferencePaper", "PaperAssignments")">See all papers</a> |

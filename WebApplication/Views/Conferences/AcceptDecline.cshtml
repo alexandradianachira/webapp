@@ -8,23 +8,22 @@
 {
 
     <div style="padding-left:30px">
-        
+
 
         <input type="submit" id="accept" name="Accept" value="Accept" class="btn btn-success" />
         <input type="submit" id="decline" name="Decline" value="Decline" class="btn btn-danger" />
-        
+
     </div>
 
 }
-   @section Scripts {
+@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
 @if (ViewBag.Message != null)
 {
     <script type="text/javascript">
-                window.onload=function()
-                {
-                    alert("@ViewBag.Message");
-                }
+        window.onload = function () {
+            alert("@ViewBag.Message");
+        }
     </script>
 }

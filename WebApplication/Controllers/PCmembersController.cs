@@ -41,7 +41,7 @@ namespace WebApplication.Controllers
             return View();
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_pcmember,id_user,id_conference,is_chair,date_invitation_sent,date_invitation_acc,is_valid")] PCmember pCmember)
@@ -71,7 +71,7 @@ namespace WebApplication.Controllers
             return View(pCmember);
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_pcmember,id_user,id_conference,is_chair,date_invitation_sent,date_invitation_acc,is_valid")] PCmember pCmember)
@@ -118,6 +118,9 @@ namespace WebApplication.Controllers
 
         }
 
+
+        //metoda dupa click pe link-ul din e-mail; utilizatorul decide daca doreste sa faca review la lucrare
+        //se adauga un nou pcmember + paperassignment + subreviewer 
         [HttpPost]
         public ActionResult AcceptDecline([Bind(Include = "verification_key")]User user, int id_user, int id_conference, String submit)
         {
@@ -159,7 +162,7 @@ namespace WebApplication.Controllers
                 newPaperAssignment.is_delegated = false;
                 db.PaperAssignments.Add(newPaperAssignment);
                 db.SaveChanges();
-              
+
 
                 PaperAssignment pp = db.PaperAssignments.Find(newPaperAssignment.id_paper_assignment);
                 Subreviewer newSubreviewer = new Subreviewer();
@@ -180,7 +183,7 @@ namespace WebApplication.Controllers
 
                 db.Subreviewers.Add(newSubreviewer);
                 db.SaveChanges();
-                
+
 
             }
             else if (Request.Form["Decline"] != null)
@@ -188,14 +191,14 @@ namespace WebApplication.Controllers
                 return RedirectToAction("Reconsideration", "PCmembers");
 
             }
-
-            return RedirectToAction("Index", "Subreviewers", new { id=id_user});
+            return RedirectToAction("SubreviewerDetails", "PaperAssignments", new { id = id_user });
         }
         public ActionResult Reconsideration()
         {
             return View();
         }
 
+        //lista cu toti pc membersii detaliata
         public ActionResult AllPCmembers()
         {
             ViewBag.Users = db.Users.ToList();

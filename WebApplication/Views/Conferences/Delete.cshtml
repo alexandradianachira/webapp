@@ -43,11 +43,12 @@
             @Html.DisplayFor(model => model.end_date)
         </dd>
 
-      
+
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

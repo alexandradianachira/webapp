@@ -12,19 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.id_paper)
+            Paper
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.id_pcmember)
+            Conference
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.date_assigned)
+            First name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.date_due)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.is_delegated)
+            Subreviewers
         </th>
         <th></th>
     </tr>
@@ -33,19 +30,20 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.id_paper)
+                @Html.DisplayFor(modelItem => item.Paper.title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.id_pcmember)
+                @Html.DisplayFor(modelItem => item.PCmember.Conference.conference_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.date_assigned)
+                @Html.DisplayFor(modelItem => item.PCmember.User.first_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.date_due)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.is_delegated)
+                @foreach (var it in item.Subreviewers)
+                {
+                    @Html.DisplayFor(modelItem => it.User.surname)
+                }
+
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id_paper_assignment }) |

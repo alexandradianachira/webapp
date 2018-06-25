@@ -220,6 +220,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PapersController.cs" />
+    <Compile Include="FileModel.cs" />
     <Compile Include="Forms\newUser.aspx.cs">
       <DependentUpon>newUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -465,7 +466,6 @@
     <Content Include="Views\Papers\Index.cshtml" />
     <Content Include="Views\PCmembers\Reconsideration.cshtml" />
     <Content Include="Views\PCmembers\AcceptDecline.cshtml" />
-    <Content Include="Views\Authors\Error.cshtml" />
     <Content Include="Views\Papers\AllPapers.cshtml" />
     <Content Include="Views\PCmembers\AllPCmembers.cshtml" />
     <Content Include="Views\Subreviews\Create.cshtml" />
@@ -477,6 +477,13 @@
     <Content Include="Views\Subreviews\SubreviewsForChair.cshtml" />
     <Content Include="Views\Papers\AddDecision.cshtml" />
     <Content Include="Views\Papers\SubreviewsPaper.cshtml" />
+    <Content Include="Views\Conferences\ShowConferences.cshtml" />
+    <Content Include="Views\Papers\PaperForChair.cshtml" />
+    <Content Include="Views\PaperAssignments\ConferencePaper.cshtml" />
+    <Content Include="Views\Papers\SeePaper.cshtml" />
+    <Content Include="Views\Papers\GetFile.cshtml" />
+    <Content Include="Views\PaperAssignments\SubreviewerDetails.cshtml" />
+    <Content Include="Views\Reviews\FinalReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

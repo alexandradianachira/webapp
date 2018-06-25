@@ -1,19 +1,17 @@
 ﻿@model IEnumerable<WebApplication.Paper>
 
 @{
-    ViewBag.Title = "SubreviewsPaper";
+    ViewBag.Title = "PapersForChair";
 }
 
-<h2>SubreviewsPaper</h2>
+<h2>Papers for Chair</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.id_conference)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.title)
         </th>
@@ -23,17 +21,12 @@
         <th>
             @Html.DisplayNameFor(model => model.date_submitted)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.is_submitted)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.decision)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.decision_text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.decision_date)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.email)
@@ -50,9 +43,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_conference)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.title)
             </td>
@@ -63,17 +54,12 @@
                 @Html.DisplayFor(modelItem => item.date_submitted)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.is_submitted)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.decision)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.decision_text)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.decision_date)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.email)
             </td>
@@ -84,9 +70,14 @@
                 @Html.DisplayFor(modelItem => item.text)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id_paper }) |
+
                 @Html.ActionLink("Details", "Details", new { id = item.id_paper }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id_paper })
+                @if (item.decision_text == null && item.decision == false)
+                { <a href="@Url.Action("AddDecision", "Papers", new { id = item.id_conference })">Add Decision</a>
+
+                }
+
+
             </td>
         </tr>
     }

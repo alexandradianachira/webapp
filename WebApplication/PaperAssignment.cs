@@ -11,7 +11,8 @@ namespace WebApplication
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class PaperAssignment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,8 +25,14 @@ namespace WebApplication
         public int id_paper_assignment { get; set; }
         public int id_paper { get; set; }
         public int id_pcmember { get; set; }
+        [DisplayName("Date assigned")]
+
         public System.DateTime date_assigned { get; set; }
+        [DisplayName("Date due")]
+
         public System.DateTime date_due { get; set; }
+        [DisplayName("Is delegated")]
+
         public bool is_delegated { get; set; }
     
         public virtual PCmember PCmember { get; set; }

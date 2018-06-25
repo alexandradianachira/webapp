@@ -49,31 +49,31 @@
             @Html.DisplayFor(model => model.end_date)
         </dd>
 
-    
+
     </dl>
     <br />
     <table class="table">
         <tr>
-           <th>Surname</th> 
+            <th>Surname</th>
             <th>First name</th>
             <th>Email</th>
             <th>Invite</th>
 
         </tr>
-        
+
 
         @foreach (var item in ViewBag.Users)
         {
-        <tr>
-            <td class="surname">@item.surname   </td>
-            <td class="first">@item.first_name </td>
-            <td class="email">@item.email </td>
+            <tr>
+                <td class="surname">@item.surname   </td>
+                <td class="first">@item.first_name </td>
+                <td class="email">@item.email </td>
 
-            <td> @Html.ActionLink("Invite", "ListUsers", new { id = item.id_user })</td>
-        </tr>
+                <td> @Html.ActionLink("Invite", "ListUsers", new { id = item.id_user })</td>
+            </tr>
         }
     </table>
-  
+
 </div>
 <br />
 

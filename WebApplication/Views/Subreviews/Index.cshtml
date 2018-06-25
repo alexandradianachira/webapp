@@ -9,7 +9,12 @@
 
 <table class="table">
     <tr>
-        
+        <th>
+            Paper's title
+        </th>
+        <th>
+            Conference name
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.grade)
         </th>
@@ -28,31 +33,38 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-     
-        <td>
-            @Html.DisplayFor(modelItem => item.grade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.confidence)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.comment_to_edit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_submitted)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_subreview }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_subreview }) 
-            
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Subreviewer.PaperAssignment.Paper.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subreviewer.PaperAssignment.PCmember.Conference.conference_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.grade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.confidence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment_to_edit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_submitted)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id_subreview }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id_subreview })
+
+            </td>
+        </tr>
+    }
 
 </table>
 <hr />

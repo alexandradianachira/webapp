@@ -14,14 +14,34 @@ namespace WebApplication.Controllers
     {
         private UserModelContainer db = new UserModelContainer();
 
+
         // GET: Subreviews
         public ActionResult Index()
         {
+            User user = (User)Session["User"];
+            List<Subreview> subreviews = new List<Subreview>();
+            List<Subreview> subs = (from u in db.Subreviews where u.Subreviewer.id_user == user.id_user select u).ToList();
+
+            //foreach(Subreview sub in subs)
+            // {
+            //     if()
+            // }
+
+            return View(subs);
 
 
-            return View(db.Subreviews.ToList());
+
         }
 
+        //subreviews pt chair la fiecare paper/conf in parte
+        public ActionResult SubreviewsForChair()
+        {
+            User user = (User)Session["User"];
+            List<Conference> confs = (from u in db.Conferences where u.Chair.id_user == user.id_user select u).ToList();
+
+
+            return View(db.Subreviews.OrderBy(p => p.Subreviewer.PaperAssignment.Paper.id_conference).ToList());
+        }
 
 
         // GET: Subreviews/Details/5
@@ -39,7 +59,7 @@ namespace WebApplication.Controllers
             return View(subreview);
         }
 
-        // GET: Subreviews/Create
+        //adaugare subreview
         public ActionResult AddSubreview(int? id)
         {
             if (id == null)
@@ -74,14 +94,13 @@ namespace WebApplication.Controllers
                 subreview.date_submitted = DateTime.Now;
                 subreview.comment_to_edit = "";
                 db.Subreviews.Add(subreview);
-
                 db.SaveChanges();
-               // return RedirectToAction("Index");
+                // return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
 
-        // GET: Subreviews/Edit/5
+        //editare subreview 
         public ActionResult Edit(int? id)
         {
             if (id == null)

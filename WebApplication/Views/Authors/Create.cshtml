@@ -12,10 +12,10 @@
 
 <h2>Create an author account</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-       
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -43,17 +43,16 @@
         </div>
     </div>
 }
-<hr/>
+<hr />
 @if (ViewBag.Message != null)
 {
     <script type="text/javascript">
-                window.onload=function()
-                {
-                    alert("@ViewBag.Message");
-                }
+        window.onload = function () {
+            alert("@ViewBag.Message");
+        }
     </script>
 }
-  
+
 
 <div class="container">
     <ul class="nav nav-pills nav-stacked">

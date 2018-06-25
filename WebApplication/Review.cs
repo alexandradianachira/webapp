@@ -11,16 +11,19 @@ namespace WebApplication
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Review
     {
         public int id_review { get; set; }
         public int id_paper_assignment { get; set; }
+        [DisplayName("Grade")]
+
         public double grade { get; set; }
         public int confidence { get; set; }
         public string comment { get; set; }
         public string comment_to_editor { get; set; }
-        public string date_submitted { get; set; }
+        public System.DateTime date_submitted { get; set; }
         public string from_subreviewer { get; set; }
     
         public virtual PaperAssignment PaperAssignment { get; set; }

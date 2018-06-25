@@ -47,47 +47,48 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id_conference)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pdf)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_submitted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.is_submitted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.decision)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.decision_text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.decision_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.contributions)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.text)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_paper }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_paper }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_paper })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_conference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pdf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_submitted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.is_submitted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.decision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.decision_text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.decision_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contributions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.text)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id_paper }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id_paper }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id_paper })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WebApplication.PaperAssignment>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            PDF
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Contributions
+        </th>
+        <th>
+            Chair's decision
+        </th>
+        <th>
+            Chair's comment
+        </th>
+        <th>
+            Author's email
+        </th>
+        <th>
+            Subreviewers and reviews
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paper.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paper.pdf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paper.text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paper.contributions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paper.decision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paper.decision_text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paper.email)
+            </td>
+
+            <td>
+                @foreach (var it in item.Subreviewers)
+                {
+                    @Html.DisplayFor(modelItem => it.User.surname)  @Html.DisplayFor(modelItem => it.User.first_name)
+
+                <td>
+
+                    @foreach (var i in it.Subreviews)
+                    {
+                        @Html.DisplayFor(modelItem => i.comment)
+                        @Html.DisplayFor(modelItem => i.comment_to_edit)
+                        @Html.DisplayFor(modelItem => i.grade)
+
+
+                    }
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id_paper_assignment }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id_paper_assignment }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id_paper_assignment }) |
+                    <a href="@Url.Action("AddSubreview", "Subreviews", new { id = it.id_subreviewer })">Add a review</a>
+
+                </td>
+
+                }
+            </tr>
+    }
+    }
+</table>

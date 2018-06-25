@@ -1,0 +1,18 @@
+﻿@model FileModel
+@{
+    ViewBag.Title = "GetFile";
+}
+
+<h2>Please upload your pdf file</h2>
+<hr />
+@using (Html.BeginForm("GetFile", "Papers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.TextBoxFor(m => m.pdf, new { type = "file" })
+    @Html.ValidationMessageFor(m => m.pdf)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Upload" class="btn btn-default" />
+        </div>
+    </div>
+}
